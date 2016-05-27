@@ -6,8 +6,10 @@ class CreatePosts < ActiveRecord::Migration
       t.string :img_url
       t.text :description
       t.string :slug
-      
+      t.belongs_to :type
       t.timestamps null: false
     end
+    add_index :posts, :title, unique: true
+
   end
 end

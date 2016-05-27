@@ -1,17 +1,18 @@
 class SessionsController < ApplicationController
 skip_before_action :require_login, except: [:destroy]
-#before_action :validate_users, only: [:new]
+before_action :validate_users, only: [:new]
 
 	def new
 		if current_user
-			redirect_back_or_to(root_path,notice:"Usted ya esta logeado con la cedula " + current_user.cedula)
+			redirect_back_or_to(root_path,notice:"Usted ya esta logeado con la cedula " + current_user.username)
 		else
 			@user = User.new
+			render "new" , layout: "layout_login"
 		end
 		
 	end
 	def create
-		if @user = login(params[:cedula],params[:password])
+		if @user = login(params[:usename],params[:password])
 			puts "CORRECT"
 			$months=[
 		        "Enero",

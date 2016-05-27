@@ -1,13 +1,14 @@
     <div class="login-box">
       <div class="login-logo">
-		<b>Control de Inventario</b>
+		 <p><%=alert%></p> 
+    <b>Inicio de sesión</b>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
         <p class="login-box-msg">Ingresa tus datos para iniciar sesión </p>
         <%= form_tag sessions_path,class: "content-center", method: :post do %>
        
           <div class="form-group has-feedback">
-            <input type="number" class="form-control cedula" placeholder="Cedula" name="cedula">
+            <input class="form-control" placeholder="Username" name="username">
             <span class="glyphicon glyphicon-user form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
