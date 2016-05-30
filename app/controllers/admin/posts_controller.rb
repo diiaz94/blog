@@ -1,6 +1,6 @@
 class Admin::PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-
+  layout 'layout_admin'
   # GET /posts
   # GET /posts.json
   def index
@@ -15,10 +15,12 @@ class Admin::PostsController < ApplicationController
   # GET /posts/new
   def new
     @post = Post.new
+    @text_save = "Crear Post"
   end
 
   # GET /posts/1/edit
   def edit
+    @text_save = "Actualizar Post"
   end
 
   # POST /posts
@@ -64,7 +66,7 @@ class Admin::PostsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
-      @post = Post.find(params[:id])
+      @post = Post.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
-  resources :types
-  resources :roles
   resources :sessions
-  get 'welcome/index'
 
+  get 'admin' => 'welcome#admin', as: :admin
   get 'login' => 'sessions#new', as: :login
   get 'logout' => 'sessions#destroy', as: :logout
   namespace "admin" do
     resources :posts
+    resources :types
+    resources :roles
   end
 
   get 'posts' => 'posts#index', as: :posts

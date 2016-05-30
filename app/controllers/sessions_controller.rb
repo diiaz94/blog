@@ -12,7 +12,7 @@ before_action :validate_users, only: [:new]
 		
 	end
 	def create
-		if @user = login(params[:usename],params[:password])
+		if @user = login(params[:username],params[:password])
 			puts "CORRECT"
 			$months=[
 		        "Enero",
@@ -37,7 +37,7 @@ before_action :validate_users, only: [:new]
 	end
 	def destroy
 		logout
-		redirect_to(login_path,notice: "Ha cerrado sesion correctamente.");
+		redirect_to(root_path,notice: "Ha cerrado sesion correctamente.");
 	end
 	private 
 	def validate_users

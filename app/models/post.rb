@@ -2,7 +2,7 @@ class Post < ActiveRecord::Base
 
 
  	extend FriendlyId
-	friendly_id :cedula, use: :slugged
+	friendly_id :title, use: :slugged
 
   FOTOS = File.join Rails.root, 'public','photo_store'
 
@@ -18,11 +18,11 @@ class Post < ActiveRecord::Base
   end
 
   def photo_filename
-  	File.join FOTOS, "#{cedula}.jpg"
+  	File.join FOTOS, "#{title}.jpg"
   end
   
   def photo_path
-  	"/photo_store/#{cedula}.jpg"
+  	"/photo_store/#{title}.jpg"
   end
   
   def has_photo?

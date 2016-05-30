@@ -1,4 +1,4 @@
-class TypesController < ApplicationController
+class Admin::TypesController < ApplicationController
   before_action :set_type, only: [:show, :edit, :update, :destroy]
 
   # GET /types

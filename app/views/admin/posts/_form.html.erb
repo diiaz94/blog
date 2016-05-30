@@ -10,24 +10,40 @@
       </ul>
     </div>
   <% end %>
+<div class="field">
+    <%=f.label :photo, "Imagen del post"%><br>
+    <%= image_tag @post.ruta_photo, id: "containerImage", class: "img-post"%><br>
+    <%=f.file_field :photo, accept:"image/jpeg",class: "hidden",onchange: "loadFile(event)"%>
+    <button type="button" style="margin-top:5px;" class="btn btn-default" aria-label="Left Align" onclick="$('input[id=post_photo]').click();">
+      <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
+      Cargar Imagen &nbsp;
+    </button>
+ </div>
+<script>
+  var loadFile = function(event) {
+    var reader = new FileReader();
+    reader.onload = function(){
+      var output = document.getElementById('containerImage');
+      output.src = reader.result;
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  };
 
+</script>
   <div class="field">
-    <%= f.label :title %><br>
+    <%= f.label :title, "Título" %><br>
     <%= f.text_field :title %>
   </div>
   <div class="field">
-    <%= f.label :subtitle %><br>
+    <%= f.label :subtitle, "Subtítulo" %><br>
     <%= f.text_field :subtitle %>
   </div>
   <div class="field">
-    <%= f.label :img_url %><br>
-    <%= f.text_field :img_url %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
+    <%= f.label :description, "Descripción" %><br>
     <%= f.text_area :description %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+      <%= f.submit (@post.new_record? ? "Crear Post" : "Actualizar Post"), class: "visible-xs btn btn-block btn-primary btn-lg" %>
+      <%= f.submit (@post.new_record? ? "Crear Post" : "Actualizar Post"), class: "hidden-xs btn btn-primary" %>
   </div>
 <% end %>

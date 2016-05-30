@@ -1,8 +1,16 @@
 class WelcomeController < ApplicationController
-	skip_before_action :require_login
+	skip_before_action :require_login,  except: [:admin]
 
 	def index
+    if current_user
+      if current_user.admin?
+        redirect_to admin_path        
+      end
+    end
 	end
+  def admin
+    render "index", layout: "layout_admin"
+  end
   def admin_user
   	@user = User.new
     if !@notUsers
