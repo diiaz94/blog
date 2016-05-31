@@ -7,8 +7,10 @@ class WelcomeController < ApplicationController
         redirect_to admin_path        
       end
     end
+    @posts=Post.all
 	end
   def admin
+    @posts=Post.all
     render "index", layout: "layout_admin"
   end
   def admin_user

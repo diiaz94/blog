@@ -27,6 +27,39 @@ $( document ).ready(function() {
 	    }
 	});
 
+
+
+$("#form-post-img").on("submit",function (e){
+	e.preventDefault();
+	var formData = new FormData(this);
+	 $.ajax({
+            type:'POST',
+            url: $(this).attr('action'),
+            data:formData,
+            cache:false,
+            contentType: false,
+            processData: false,
+            success:function(response){
+                console.log("success");
+                console.log(response);
+                if (response.status_code==200) {
+                	url_image = response.data.thumb_url;
+					$("#new_post").append(
+							"<input type='text' name='post[img_url]' value='"+url_image+"'>"
+						)         	
+                };
+                debugger;
+                $("#new_post").submit();
+            },
+            error: function(data){
+                console.log("error");
+                console.log(data);
+            }
+        });
+
+
+});
+
 	/*$( "body" ).mousemove(function( event ) {
 		if(event.pageY<60){
 			if ($("nav.nav-desktop").length) {
@@ -41,12 +74,18 @@ $( document ).ready(function() {
 
 });
 
+var url_image;
+function getUrlImage(){
+	$("#form-post-img").submit();
+}
 
 function saveimg(){
-	var img = $(".img-post").attr("src");
+	var img = new FormData($("#post-img"));
 	$.ajax({
 		method: "POST",
 		url: "http://uploads.im/api",
+		processData: false,
+    	contentType: false,
 		data: {upload: img}
 	}).done(
 		function(data){

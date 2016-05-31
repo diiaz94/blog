@@ -17,9 +17,42 @@ $(function () {
 	<div class="col-xs-3">
 	</div>
 	<div class="col-xs-6">
+		<ul class="tab">
+			<li><a href="#news" class="tablinks"> Blog</a></li>
+			<li><a href="#updates" class="tablinks"> Updates</a></li>
+		</ul>
 		<div class="row">
 			<div class="col-xs-8 no-padding-right">
-				<div class="posts-container"></div>
+				<div class="posts-container">
+					 <div id="news" class="tab-content">
+						 <% @posts.each do |post| %>
+						 	<div id="<%='post-'+post.id.to_s%>" class="post-container">
+							 	<h1><%=post.title%></h1>
+							 	<h4><%=post.subtitle%></h3>
+							 	<h4><%=post.fecha_c%></h3>
+							 	<div class="container-image-post">
+							 		<img src="<%=post.img_url%>" alt="<%=post.title%>">
+							 	</div>
+							 	<p><%=post.description%></p>
+							 </div>
+						 <hr> 
+						 <%end%>
+					 </div>
+					 <div id="updates" class="tab-content">
+						 <% @posts.each do |post| %>
+						 	<div id="<%='post-'+post.id.to_s%>" class="post-container">
+							 	<h1><%=post.title%></h1>
+							 	<h4><%=post.subtitle%></h3>
+							 	<h4><%=post.fecha_c%></h3>
+							 	<div class="container-image-post">
+							 		<img src="<%=post.img_url%>" alt="<%=post.title%>">
+							 	</div>
+							 	<p><%=post.description%></p>
+							 </div>
+						 <hr> 
+						 <%end%>
+					 </div>
+				</div>
 			</div>
 			<div class="col-xs-4 no-padding-left">
 				<div class="link-network"><img class="img-network" src="/photo_store/btn_network.png"></img></div>

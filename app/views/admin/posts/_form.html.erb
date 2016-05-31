@@ -1,4 +1,4 @@
-<%= form_for(@post) do |f| %>
+<%= form_for(@post,url: (@post.new_record? ? admin_posts_url : admin_post_url )) do |f| %>
   <% if @post.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
@@ -13,8 +13,7 @@
 <div class="field">
     <%=f.label :photo, "Imagen del post"%><br>
     <%= image_tag @post.ruta_photo, id: "containerImage", class: "img-post"%><br>
-    <%=f.file_field :photo, accept:"image/jpeg",class: "hidden",onchange: "loadFile(event)"%>
-    <button type="button" style="margin-top:5px;" class="btn btn-default" aria-label="Left Align" onclick="$('input[id=post_photo]').click();">
+    <button type="button" style="margin-top:5px;" class="btn btn-default" aria-label="Left Align" onclick="$('#file').click();">
       <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
       Cargar Imagen &nbsp;
     </button>
@@ -43,7 +42,13 @@
     <%= f.text_area :description %>
   </div>
   <div class="actions">
-      <%= f.submit (@post.new_record? ? "Crear Post" : "Actualizar Post"), class: "visible-xs btn btn-block btn-primary btn-lg" %>
-      <%= f.submit (@post.new_record? ? "Crear Post" : "Actualizar Post"), class: "hidden-xs btn btn-primary" %>
+    <button type="button" style="margin-top:5px;" class="visible-xs btn btn-block btn-primary btn-lg" aria-label="Left Align" onclick="getUrlImage();"><%= (@post.new_record? ? "Crear Post" : "Actualizar Post")%></button>
+    <button type="button" style="margin-top:5px;" class="hidden-xs btn btn-primary" aria-label="Left Align" onclick="getUrlImage();"><%= (@post.new_record? ? "Crear Post" : "Actualizar Post")%></button>
   </div>
 <% end %>
+<div class="hidden">
+  <form id = "form-post-img" method="POST" action="http://uploads.im/api?upload" enctype="multipart/form-data">
+    <input type="file" id="file" name="file" onchange= "loadFile(event)" />
+    <input type="submit" value="SEND FILE">
+  </form>
+</div>
