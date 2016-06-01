@@ -1,7 +1,7 @@
 class Post < ActiveRecord::Base
   include ApplicationHelper 
 
-
+  belongs_to :type
  	extend FriendlyId
 	friendly_id :title, use: :slugged
 
@@ -16,7 +16,12 @@ class Post < ActiveRecord::Base
   def fecha_u
     format_date(self.updated_at)
   end
-
+  def is_new?
+    return self.type.name=="new"
+  end
+  def is_update?
+    return self.type.name=="update"
+  end
   def photo=(file_data)
      puts "FILE DATASIZE********"+file_data.size.to_s
     if !file_data.blank?

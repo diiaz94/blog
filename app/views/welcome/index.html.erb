@@ -6,7 +6,7 @@ $(function () {
 	if ($(".nav-desktop").length) {
 		$(".nav-desktop").css("position","absolute");
 	}; 
-
+	initTabs();
 });
 </script>
 <header class="header">
@@ -18,39 +18,35 @@ $(function () {
 	</div>
 	<div class="col-xs-6">
 		<ul class="tab">
-			<li><a href="#news" class="tablinks"> Blog</a></li>
-			<li><a href="#updates" class="tablinks"> Updates</a></li>
+			<li class="active"><a href="#news" class="tablinks"> BLOG</a></li>
+			<li><a href="#updates" class="tablinks"> UPDATES</a></li>
 		</ul>
 		<div class="row">
 			<div class="col-xs-8 no-padding-right">
-				<div class="posts-container">
-					 <div id="news" class="tab-content">
-						 <% @posts.each do |post| %>
-						 	<div id="<%='post-'+post.id.to_s%>" class="post-container">
-							 	<h1><%=post.title%></h1>
-							 	<h4><%=post.subtitle%></h3>
-							 	<h4><%=post.fecha_c%></h3>
-							 	<div class="container-image-post">
-							 		<img src="<%=post.img_url%>" alt="<%=post.title%>">
-							 	</div>
-							 	<p><%=post.description%></p>
-							 </div>
-						 <hr> 
-						 <%end%>
-					 </div>
-					 <div id="updates" class="tab-content">
-						 <% @posts.each do |post| %>
-						 	<div id="<%='post-'+post.id.to_s%>" class="post-container">
-							 	<h1><%=post.title%></h1>
-							 	<h4><%=post.subtitle%></h3>
-							 	<h4><%=post.fecha_c%></h3>
-							 	<div class="container-image-post">
-							 		<img src="<%=post.img_url%>" alt="<%=post.title%>">
-							 	</div>
-							 	<p><%=post.description%></p>
-							 </div>
-						 <hr> 
-						 <%end%>
+				<div class="posts-container" id="tabs-container">
+					<div id="news" class="tab-content">
+					 	<div class="post-container template hidden">
+						 	<h1 class="title"></h1>
+						 	<h4 class="subtitle"></h3>
+						 	<h4 class="fecha_c"></h3>
+						 	<div class="container-image-post">
+						 		<img class="post-img" src="" alt="">
+						 	</div>
+						 	<p class="description"></p>
+					 		<hr> 
+						</div>
+					</div>
+					<div id="updates" class="tab-content">
+						<div class="post-container template hidden">
+						 	<h1 class="title"></h1>
+						 	<h4 class="subtitle"></h3>
+						 	<h4 class="fecha_c"></h3>
+						 	<div class="container-image-post">
+						 		<img class="post-img" src="" alt="">
+						 	</div>
+						 	<p class="description"></p>
+					 		<hr> 
+						</div>
 					 </div>
 				</div>
 			</div>

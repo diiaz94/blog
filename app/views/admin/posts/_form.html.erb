@@ -11,7 +11,7 @@
     </div>
   <% end %>
 <div class="field">
-    <%=f.label :photo, "Imagen del post"%><br>
+    <%=f.label :photo, "Imagen de la entrada"%><br>
     <%= image_tag @post.ruta_photo, id: "containerImage", class: "img-post"%><br>
     <button type="button" style="margin-top:5px;" class="btn btn-default" aria-label="Left Align" onclick="$('#file').click();">
       <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
@@ -31,19 +31,24 @@
 </script>
   <div class="field">
     <%= f.label :title, "Título" %><br>
-    <%= f.text_field :title %>
+    <%= f.text_field :title,class:"form-control select2" %>
   </div>
   <div class="field">
     <%= f.label :subtitle, "Subtítulo" %><br>
-    <%= f.text_field :subtitle %>
+    <%= f.text_field :subtitle,class:"form-control select2"%>
+  </div>
+
+  <div class="field">
+  <%= f.label :type_id, "Tipo de entrada" %><br>
+  <%= f.select :type_id, options_for_select(Type.all.pluck(:name,:id),( @post.type ? @post.type_id : "" )),{},{class:"form-control select2"}%>
   </div>
   <div class="field">
     <%= f.label :description, "Descripción" %><br>
-    <%= f.text_area :description %>
+    <%= f.text_area :description,class:"form-control select2" %>
   </div>
   <div class="actions">
     <button type="button" style="margin-top:5px;" class="visible-xs btn btn-block btn-primary btn-lg" aria-label="Left Align" onclick="getUrlImage();"><%= (@post.new_record? ? "Crear Post" : "Actualizar Post")%></button>
-    <button type="button" style="margin-top:5px;" class="hidden-xs btn btn-primary" aria-label="Left Align" onclick="getUrlImage();"><%= (@post.new_record? ? "Crear Post" : "Actualizar Post")%></button>
+    <button type="button" style="margin-top:5px;" class="hidden-xs btn btn-primary" aria-label="Left Align" onclick="getUrlImage();"><%= (@post.new_record? ? "Crear Entrada" : "Actualizar Entrada")%></button>
   </div>
 <% end %>
 <div class="hidden">

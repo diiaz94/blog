@@ -1,10 +1,23 @@
 class PostsController < ApplicationController
+  skip_before_action :require_login
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all
+    if params[:type]
+      if params[:type]=="news"
+        @posts = Post.where(type_id: Type.where(name: "new").first.id)      
+      else
+        if params[:type]=="updates"
+          @posts = Post.where(type_id: Type.where(name: "update").first.id)      
+        else
+         @posts = Post.all
+        end  
+      end
+    else
+      @posts = Post.all
+    end
   end
 
   # GET /posts/1

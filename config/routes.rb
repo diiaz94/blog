@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   end
 
   get 'posts' => 'posts#index', as: :posts
-  
+  get 'posts/:id' => 'posts#show', as: :post
+
   post 'create_admin_user' => 'welcome#create_admin_user', as: :create_admin_user
   get 'admin_user' => 'welcome#admin_user', as: :admin_user    
   # The priority is based upon order of creation: first created -> highest priority.
