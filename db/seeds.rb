@@ -11,3 +11,9 @@ Role.create(
 
 				]
 			)
+Type.create(
+				[
+					{name: "new",description: "Tipo noticia"},
+					{name: "update",description: "Tipa update"}
+				]
+			)
