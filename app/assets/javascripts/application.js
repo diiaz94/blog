@@ -70,7 +70,9 @@ function inflateTabTemplate(template,data){
 	template.find(".fecha_c").text(data.fecha_c);
 	template.find(".description").text(data.description);
 	$(template.find(".post-img")).attr("src",data.img_url);
-
+	$(template.find(".buttons .delete")).attr("href",data.url);
+	$(template.find(".buttons .edit")).attr("href",data.url_edit);
+debugger
 	return template;
 }
 
@@ -87,19 +89,30 @@ function fillTabTemplate(data,name){
 	showTab(name);
 }
 function fillTab(name) {
-	debugger
 	 $.ajax({
             type:'GET',
             url: '/posts.json',
             data:{type:name},
+            beforeSend: function(){
+            	$(".tab-content:visible").hide();
+            	$(".loading-container").fadeIn();
+          		$("#tabs-container").addClass("state-loading");
+            },
             success:function(response){
                 console.log("success");
                 console.log(response);
-               	fillTabTemplate(response,name);
+                //$("#tabs-container").removeClass("state-loading");
+               	fillTabTemplate(response,name)
             },
             error: function(data){
                 console.log("error");
                 console.log(data);
+                alert("Ha ocurrido un error, intente de nuevo");
+            },
+            complete:function(){
+   	            	$(".loading-container").hide();
+               		$("#tabs-container").removeClass("state-loading");
+            	//$("#tabs-container").removeClass("state-loading");
             }
         });
 }
@@ -125,7 +138,6 @@ function showTab(name){
 function initTabs(){
 	var ws=18;
 	$.each($(".tab").children(),function(i,v){
-		debugger
 		if (i>0) {
 			$($(".tab").children()[i]).css("left",ws+"px");
 		};
@@ -139,7 +151,6 @@ function initTabs(){
 }
 
 function getUrlImage(){
-	debugger
 	var formData = new FormData(document.getElementById("form-post-img"));
 	 $.ajax({
             type:'POST',
@@ -165,3 +176,6 @@ function getUrlImage(){
 
 
 
+function showLoader(){
+	$("#tabs-container").addClass("state-loading");
+}

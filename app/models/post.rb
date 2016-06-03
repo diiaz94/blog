@@ -50,6 +50,9 @@ class Post < ActiveRecord::Base
   	end
   end
   
+  def ruta_edit
+    edit_admin_post_path(self)
+  end
   private
   def guardar_foto
     if @file_data

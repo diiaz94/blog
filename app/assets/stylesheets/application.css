@@ -13,11 +13,27 @@
  *= require_tree .
  *= require_self
  */
+
+ @font-face {
+    font-family: my_custom_font;
+    src: url(/bootstrap/fonts/Arial-Rounded-MT-Regular.ttf);
+}
+
+body{
+	font-family: my_custom_font!important;
+}
 .no-padding-right{
 	padding-right: 0
 }
 .no-padding-left{
 	padding-left: 0
+}
+
+.f-r{
+	float: right;
+}
+.f-l{
+	float: left;
 }
 header.header{
     position: absolute;
@@ -39,10 +55,19 @@ header.header{
 	min-height: 300px;
 	padding: 10px 10px 10px 10px;
 }
+.posts-container.state-loading{
+	text-align: center;
+    display: table;
+    width: 100%;
+}
 
+.loading-container{
+    display: table-cell;
+    vertical-align: middle;
+}
 
 .container-image-post{
-	border:1px solid white;
+	border:2px solid #474748;
 
 }
 .img-network,.img-advertising{
@@ -93,10 +118,12 @@ footer{
 	position:fixed;
 	left:0px;
 	bottom:0px;
-	height:70px;
+	height:80px;
 	width:100%;
 	z-index: 2;
 	background-color: #ffaa35;	
+	font-size: 11px;
+	padding-top: 14px;
 }
 
 nav.nav-desktop{
@@ -113,9 +140,7 @@ nav.nav-desktop{
 	width: 100%;
 }
 
-.description{
-    overflow: auto;	
-}
+
 
 
 ul.tab {
@@ -124,6 +149,7 @@ ul.tab {
     padding: 0;
     overflow: hidden;
     background-color: rgba(241, 241, 241, 0);
+    margin-top: -3px;
 }
 
 /* Float the list items side by side */
@@ -142,8 +168,11 @@ ul.tab li {
 	background: linear-gradient(to bottom, rgba(255,170,51,1) 0%, rgba(186,111,20,1) 0%, rgba(255,170,51,1) 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffaa33', endColorstr='#ffaa33', GradientType=0 );
 }
+ul.tab li:hover {
+	color: black
+}
 
-ul.tab li.active{
+ul.tab li.active,ul.tab li.active:hover{
     border-bottom: 0;
 	background: rgba(5,5,5,1);
 	background: -moz-linear-gradient(top, rgba(5,5,5,1) 0%, rgba(0,0,0,1) 21%, rgba(173,173,173,1) 100%);
@@ -155,25 +184,37 @@ ul.tab li.active{
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#050505', endColorstr='#adadad', GradientType=0 );
 }
 
+
 /* Style the links inside the list items */
 ul.tab li a {
     display: inline-block;
     color: white;
     text-align: center;
-    padding: 5px 12px;
+    padding: 3px 8px 3px;
     text-decoration: none;
     transition: 0.3s;
-    font-size: 17px;
+    font-size: 12px;
+    letter-spacing: 4px;
+    padding-top: 6px;
+    padding-bottom: 0px;
+}
+ul.tab li.active a {
+    padding: 3px 8px 3px;
 }
 
 /* Change background color of links on hover */
 ul.tab li a:hover {
-    background-color: #ddd;
+    background: initial;
+    color:black;
+}
+ul.tab li.active a:hover {
+    background: initial;
+    color:white;
 }
 
 /* Create an active/current tablink class */
 ul.tab li a:focus, .active {
-    background-color: #ccc;
+
 }
 
 /* Style the tab content */
@@ -193,3 +234,76 @@ ul.tab li a:focus, .active {
     from {opacity: 0;}
     to {opacity: 1;}
 }
+
+
+
+.title{
+	color:#ffaa35;
+	font-size: 18.4px;
+    letter-spacing: 7px;
+    text-transform: uppercase;
+}
+.subtitle{
+	font-size: 13.29px
+	color:#f8f9fb;
+}
+.fecha_c{
+    font-size: 12px;
+	color:#f8f9fb;
+
+}
+
+
+
+.description{
+    overflow: auto;	
+	font-size: 12px;
+    font-family: my_custom_font;
+    margin-top: 10px;
+    text-align: justify;
+}
+
+.buttons{
+	height: 50px;
+    position: relative;
+    margin-top: -50px;
+}
+
+.buttons a{
+	margin: 5px;
+    width: 100px;
+    background: rgba(244, 244, 244, 0.6);
+}
+.buttons a:hover{
+	margin: 5px;
+    width: 100px;
+    background: rgba(244, 244, 244);
+}
+
+.glyphicon{
+    float: left;
+    margin-top: 2px;
+}
+
+.title-search{
+    margin-top: 12px;
+    letter-spacing: 17px;
+    text-align: center;
+    font-size: 17px;
+    color: rgba(51, 51, 51, 0.8);
+    font-weight: 900;
+}
+
+
+.searching-result{
+	margin-top: 8px;
+}
+
+
+.searching-title{
+	font-size: 14px;
+}
+.searching-subtitle{
+	font-size: 12px;
+}
+

@@ -32,7 +32,19 @@ $(function () {
 						 	<div class="container-image-post">
 						 		<img class="post-img" src="" alt="">
 						 	</div>
-						 	<p class="description"></p>
+						 	<%if current_user and current_user.admin?%>
+							 	<div class="buttons">
+								 	<a type="button" data-confirm="¿Estás seguro/a?" rel="nofollow" data-method="delete"  style="color:red;" class="btn btn-default f-l delete" aria-label="Left Align" > 
+								 		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+								 		Eliminar
+								 	</a>
+								 	<a type="button" class="btn btn-default f-r edit" >
+								 		<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+								 		Editar
+								 	</a>
+							 	</div>
+						 	<%end%> 
+							 	<p class="description"></p>
 					 		<hr> 
 						</div>
 					</div>
@@ -44,10 +56,25 @@ $(function () {
 						 	<div class="container-image-post">
 						 		<img class="post-img" src="" alt="">
 						 	</div>
+						 	<%if current_user and current_user.admin?%>
+							 	<div class="buttons">
+								 	<a type="button" data-confirm="¿Estás seguro/a?" rel="nofollow" data-method="delete" style="color:red;" class="btn btn-default f-l delete" aria-label="Left Align" > 
+								 		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+								 		Eliminar
+								 	</a>
+								 	<a type="button" class="btn btn-default f-r edit" >
+								 		<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+								 		Editar
+								 	</a>
+							 	</div>
+						 	<%end%> 
 						 	<p class="description"></p>
 					 		<hr> 
 						</div>
 					 </div>
+				<div class="loading-container">
+					<img src="/photo_store/ajax-loader.gif">
+				</div>	
 				</div>
 			</div>
 			<div class="col-xs-4 no-padding-left">
@@ -59,7 +86,20 @@ $(function () {
 							<input type="text" class="form-control input-searching empty" aria-label="Text input with multiple buttons" id="iconified" placeholder="&#xF002;"> 
 							<div class="input-group-btn"> 
 								<button type="button" class="btn btn-search">BUSCAR</button> 
-							</div> 
+							</div>
+
+						</div>
+						<div class="title-search">ARCHIVO</div> 
+						<div class="searching-result">
+				    	<% @posts.each do |post| %>
+				    		<div class="row-result">
+								<p>
+									<span class="searching-title"><%=post.title%></span><br>
+									<span class="searching-subtitle"><%=post.subtitle%></span>
+								</p>
+				    		</div>
+						<% end %>
+
 						</div>
 					</div>
 				</div>

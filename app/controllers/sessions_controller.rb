@@ -14,21 +14,6 @@ before_action :validate_users, only: [:new]
 	def create
 		if @user = login(params[:username],params[:password])
 			puts "CORRECT"
-			$months=[
-		        "Enero",
-		        "Febrero",
-		        "Marzo",
-		        "Abril",
-		        "Mayo",
-		        "Junio",
-		        "Julio",
-		        "Agosto",
-		        "Septiembre",
-		        "Octubre",
-		        "Noviembre",
-		        "Diciembre"
-		      ]
-
 			redirect_back_or_to(root_path,notice:"Inicio de sesion exitoso.")
 
 		else			

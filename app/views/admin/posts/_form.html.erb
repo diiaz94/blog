@@ -12,9 +12,9 @@
   <% end %>
 <div class="field">
     <%=f.label :photo, "Imagen de la entrada"%><br>
-    <%= image_tag @post.ruta_photo, id: "containerImage", class: "img-post"%><br>
-    <button type="button" style="margin-top:5px;" class="btn btn-default" aria-label="Left Align" onclick="$('#file').click();">
-      <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
+    <%= image_tag @post.img_url, id: "containerImage", class: "img-post"%><br>
+    <button type="button" style="margin-top:5px;" class="btn btn-default"  onclick="$('#file').click();">
+      <span class="glyphicon glyphicon-camera" aria-hidden="true" style="margin-right:5px;" ></span>
       Cargar Imagen &nbsp;
     </button>
  </div>
