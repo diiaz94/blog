@@ -28,7 +28,7 @@ class Admin::AdvertisingsController < ApplicationController
 
     respond_to do |format|
       if @advertising.save
-        format.html { redirect_to @advertising, notice: 'Advertising was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Publicidad creada exitosamente.' }
         format.json { render :show, status: :created, location: @advertising }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class Admin::AdvertisingsController < ApplicationController
   def update
     respond_to do |format|
       if @advertising.update(advertising_params)
-        format.html { redirect_to @advertising, notice: 'Advertising was successfully updated.' }
+        format.html { redirect_to root_path, notice: 'Publicidad actualizada exitosamente.' }
         format.json { render :show, status: :ok, location: @advertising }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class Admin::AdvertisingsController < ApplicationController
   def destroy
     @advertising.destroy
     respond_to do |format|
-      format.html { redirect_to advertisings_url, notice: 'Advertising was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'Publicidad eliminada exitosamente.' }
       format.json { head :no_content }
     end
   end
