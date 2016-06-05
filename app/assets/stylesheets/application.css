@@ -40,7 +40,7 @@ header.header{
     top: 0;
 }
 header.header img{
-	width: 95%;
+	width: 100%;
 }
 /* header.header img{
     width: 100%;
@@ -51,7 +51,7 @@ header.header img{
 */
 .principal-container{
 	position: relative;
-	top: 190px;
+	top: 240px;
 	margin-bottom: 50px;
 }
 .posts-container{
