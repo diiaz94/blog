@@ -1,4 +1,4 @@
-<%= form_for(@post,url: (@post.new_record? ? admin_posts_url : admin_post_url ),class: "form-with-img") do |f| %>
+<%= form_for(@post,url: (@post.new_record? ? admin_posts_url : admin_post_url ),:html => {:class => "form-with-img"}) do |f| %>
   <% if @post.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
@@ -52,7 +52,7 @@
   </div>
 <% end %>
 <div class="hidden">
-  <form id = "file-img" method="POST" action="http://uploads.im/api?upload" enctype="multipart/form-data">
+  <form id = "file-img" method="POST" action="https://uploads.im/api?upload" enctype="multipart/form-data">
     <input type="file" id="file" name="file" onchange= "loadFile(event)" />
     <input type="submit" value="SEND FILE">
   </form>||
