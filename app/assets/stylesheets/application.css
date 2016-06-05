@@ -103,6 +103,7 @@ header.header img{
     font-size: 9px;	
 	letter-spacing: 2px;
     padding: 5px;
+    font-family: Tahoma;
 }
 .btn-search:hover{
 	background-color: #BF7B19;

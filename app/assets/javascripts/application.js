@@ -210,7 +210,7 @@ function inflateSearchResult(data){
 
 function search_posts(text){
 
-	if (tex.length>0) {
+	if (text.length>0) {
 		var url_search = "/search.json"
 
 	}else{
