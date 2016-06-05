@@ -23,9 +23,9 @@ $( document ).ready(function() {
 	    if(input.val().length === 0) {
 	        input.addClass('empty');
 	    } else {
-	    	search_posts(input.val());
 	        input.removeClass('empty');
 	    }
+	    	search_posts(input.val());
 	});
 
 	/*$( "body" ).mousemove(function( event ) {
@@ -209,9 +209,17 @@ function inflateSearchResult(data){
 }
 
 function search_posts(text){
+
+	if (tex.length>0) {
+		var url_search = "/search.json"
+
+	}else{
+		var url_search = "/posts.json"
+	}
+
 	$.ajax({
 	type:'GET',
-	url: "/search.json",
+	url: url_search,
 	data:{text: text},
 	success:function(response){
 	    console.log("success");
