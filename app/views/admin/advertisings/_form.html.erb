@@ -1,0 +1,48 @@
+<%= form_for(@advertising,url: (@advertising.new_record? ? admin_advertisings_url : admin_advertising_url ),:html => {:class => "form-with-img"}) do |f| %>
+  <% if @advertising.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@advertising.errors.count, "error") %> prohibited this advertising from being saved:</h2>
+
+      <ul>
+      <% @advertising.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div class="field">
+    <%=f.label :photo, "Imagen de la publicidad"%><br>
+    <%= image_tag @advertising.img_url, id: "containerImage", class: "img-upload"%><br>
+    <button type="button" style="margin-top:5px;" class="btn btn-default"  onclick="$('#file').click();">
+      <span class="glyphicon glyphicon-camera" aria-hidden="true" style="margin-right:5px;" ></span>
+      Cargar Imagen &nbsp;
+    </button>
+ </div>
+<script>
+  var loadFile = function(event) {
+    var reader = new FileReader();
+    reader.onload = function(){
+      var output = document.getElementById('containerImage');
+      output.src = reader.result;
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  };
+
+</script>
+
+  <div class="field">
+    <%= f.label :link_url, "Link de la publicidad" %><br>
+    <%= f.text_field :link_url,class:"form-control select2"%>
+  </div>
+  <div class="actions">
+    <button type="button" style="margin-top:5px;" class="visible-xs btn btn-block btn-primary btn-lg" aria-label="Left Align" onclick="getUrlImage('advertising');"><%= (@advertising.new_record? ? "Crear advertising" : "Actualizar advertising")%></button>
+    <button type="button" style="margin-top:5px;" class="hidden-xs btn btn-primary" aria-label="Left Align" onclick="getUrlImage('advertising');"><%= (@advertising.new_record? ? "Crear Entrada" : "Actualizar Entrada")%></button>
+  </div>
+<% end %>
+<div class="hidden">
+  <form id = "file-img" method="advertising" action="http://uploads.im/api?upload" enctype="multipart/form-data">
+    <input type="file" id="file" name="file" onchange= "loadFile(event)" />
+    <input type="submit" value="SEND FILE">
+  </form>
+</div>

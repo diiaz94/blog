@@ -10,7 +10,7 @@ class WelcomeController < ApplicationController
     @posts=Post.all
 	end
   def admin
-    @posts = Post.all.order(created_at: :desc)
+    @posts = Post.all.order(created_at: :desc).limit(10)
     render "index", layout: "layout_admin"
   end
   def admin_user

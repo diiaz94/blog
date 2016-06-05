@@ -14,6 +14,12 @@ Role.create(
 Type.create(
 				[
 					{name: "new",description: "Tipo noticia"},
-					{name: "update",description: "Tipa update"}
+					{name: "update",description: "Tipo update"}
+				]
+			)
+Advertising.create(
+				[
+					{img_url: "/photo_store/publicidad.png",link_url: "#"}
+
 				]
 			)

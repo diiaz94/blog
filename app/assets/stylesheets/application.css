@@ -83,7 +83,7 @@ header.header{
 
 .box-searching{
 	background-color: #229f8f;
-	height: 300px;
+	min-height: 300px;
 	padding: 15px 15px 15px 15px;
 }
 .input-searching{
@@ -132,7 +132,7 @@ nav.nav-desktop{
     width: 100%;
     background-color: rgba(248, 248, 248, 0.78);
 }
-.img-post{
+.img-upload{
 	width: 300px;
 }
 
@@ -157,7 +157,7 @@ ul.tab li {
 	float: left;
 	position: absolute;
     top: -30px;
-    z-index: 4;
+    z-index: 0;
     border-bottom: 5px solid orange;
 	background: rgba(255,170,51,1);
 	background: -moz-linear-gradient(top, rgba(255,170,51,1) 0%, rgba(186,111,20,1) 0%, rgba(255,170,51,1) 100%);
@@ -269,12 +269,12 @@ ul.tab li a:focus, .active {
     margin-top: -50px;
 }
 
-.buttons a{
+.buttons a.delete,.buttons a.edit{
 	margin: 5px;
     width: 100px;
     background: rgba(244, 244, 244, 0.6);
 }
-.buttons a:hover{
+.buttons a.delete:hover,.buttons a.edit:hover{
 	margin: 5px;
     width: 100px;
     background: rgba(244, 244, 244);
@@ -286,9 +286,9 @@ ul.tab li a:focus, .active {
 }
 
 .title-search{
-    margin-top: 12px;
-    letter-spacing: 17px;
-    text-align: center;
+    margin-top: 20px;
+    letter-spacing: 8px;
+    text-align: left;
     font-size: 17px;
     color: rgba(51, 51, 51, 0.8);
     font-weight: 900;

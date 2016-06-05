@@ -66,7 +66,7 @@ $( document ).ready(function() {
 function inflateTabTemplate(template,data){
 
 	template.find(".title").text(data.title);
-	template.find(".subtitle").text(data.subtitle);
+	template.find(".subtitle").text(data.subtitle.length>0 ?data.subtitle.substring(0,1).toUpperCase()+data.subtitle.substring(1).toLowerCase():data.subtitle);
 	template.find(".fecha_c").text(data.fecha_c);
 	template.find(".description").text(data.description);
 	$(template.find(".post-img")).attr("src",data.img_url);
@@ -150,28 +150,32 @@ function initTabs(){
 	}
 }
 
-function getUrlImage(){
-	var formData = new FormData(document.getElementById("form-post-img"));
-	 $.ajax({
-            type:'POST',
-            url: $("#form-post-img").attr('action'),
-            data:formData,
-            cache:false,
-            contentType: false,
-            processData: false,
-            success:function(response){
-                console.log("success");
-                console.log(response);
-                var url_image = response.status_code==200 ? response.data.thumb_url:"/photo_store/default.jpg";
-                $("#new_post").append("<input type='text' name='post[img_url]' value='"+url_image+"'>");         	
-               	$("#new_post").submit();
+function getUrlImage(model){
+	if ($("#file").val().length>0){
+		var formData = new FormData(document.getElementById("file-img"));
+		 $.ajax({
+	            type:'POST',
+	            url: $("#file-img").attr('action'),
+	            data:formData,
+	            cache:false,
+	            contentType: false,
+	            processData: false,
+	            success:function(response){
+	                console.log("success");
+	                console.log(response);
+	                var url_image = response.status_code==200 ? response.data.thumb_url:"/photo_store/default.jpg";
+	                $(".form-with-img").append("<input type='text' name='"+model+"[img_url]' value='"+url_image+"'>");         	
+	               	$(".form-with-img").submit();
 
-            },
-            error: function(data){
-                console.log("error");
-                console.log(data);
-            }
-        });
+	            },
+	            error: function(data){
+	                console.log("error");
+	                console.log(data);
+	            }
+	        });
+	}else{
+		$(".form-with-img").submit();
+	}
 }
 
 

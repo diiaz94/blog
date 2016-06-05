@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :posts
     resources :types
     resources :roles
+    resources :advertisings
   end
 
   get 'posts' => 'posts#index', as: :posts

@@ -17,12 +17,11 @@ class Admin::PostsController < ApplicationController
   # GET /posts/new
   def new
     @post = Post.new
-    @text_save = "Crear Post"
+    @post.img_url="/photo_store/default.jpg"
   end
 
   # GET /posts/1/edit
   def edit
-    @text_save = "Actualizar Post"
   end
 
   # POST /posts
@@ -60,7 +59,7 @@ class Admin::PostsController < ApplicationController
   def destroy
     @post.destroy
     respond_to do |format|
-      format.html { redirect_to root_path, notice: 'Post was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'Entrada eliminada exitosamente.' }
       format.json { head :no_content }
     end
   end
