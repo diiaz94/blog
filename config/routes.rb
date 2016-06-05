@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   get 'posts' => 'posts#index', as: :posts
   get 'posts/:id' => 'posts#show', as: :post
+  get 'search' => 'posts#search', as: :search
 
   post 'create_admin_user' => 'welcome#create_admin_user', as: :create_admin_user
   get 'admin_user' => 'welcome#admin_user', as: :admin_user    

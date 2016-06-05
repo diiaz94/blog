@@ -26,6 +26,24 @@ class PostsController < ApplicationController
   # GET /posts/1.json
   def show
   end
+
+  def search
+    allPosts = Post.all
+    text = params["text"].downcase
+    puts "********"+text
+    @posts = []
+    allPosts.each do |post|
+      if post.title.downcase.index(text) or            
+         post.subtitle.downcase.index(text) or            
+         post.description.downcase.index(text)            
+        
+         @posts.push(post)
+      end
+    end
+    puts "****"+@posts.to_json
+    render "index"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post

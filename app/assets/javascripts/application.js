@@ -23,6 +23,7 @@ $( document ).ready(function() {
 	    if(input.val().length === 0) {
 	        input.addClass('empty');
 	    } else {
+	    	search_posts(input.val());
 	        input.removeClass('empty');
 	    }
 	});
@@ -187,3 +188,45 @@ function getUrlImage(model){
 function showLoader(){
 	$("#tabs-container").addClass("state-loading");
 }
+
+
+
+
+function inflateSearchResult(data){
+	$(".searching-result").html("");
+	$.each(data,function(i,v){
+		$(".searching-result").append(
+			"<div class='row-result'>"+
+			"<p>"+
+			"<span class='searching-title'>"+v.title+"</span><br>"+
+			"<span class='searching-subtitle'>"+v.subtitle+"</span>"+
+			"</p>"+
+			"</div>"
+			)
+
+
+	});
+}
+
+function search_posts(text){
+	$.ajax({
+	type:'GET',
+	url: "/search.json",
+	data:{text: text},
+	success:function(response){
+	    console.log("success");
+	    console.log(response);
+	    inflateSearchResult(response)
+
+	},
+	error: function(data){
+	    console.log("error");
+	    console.log(data);
+	}
+	});
+}
+
+
+
+
+
