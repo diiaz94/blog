@@ -72,7 +72,6 @@ function inflateTabTemplate(template,data){
 	$(template.find(".post-img")).attr("src",data.img_url);
 	$(template.find(".buttons .delete")).attr("href",data.url);
 	$(template.find(".buttons .edit")).attr("href",data.url_edit);
-debugger
 	return template;
 }
 
@@ -94,6 +93,7 @@ function fillTab(name) {
             url: '/posts.json',
             data:{type:name},
             beforeSend: function(){
+            	$(".no-results").hide();
             	$(".tab-content:visible").hide();
             	$(".loading-container").fadeIn();
           		$("#tabs-container").addClass("state-loading");
@@ -102,7 +102,11 @@ function fillTab(name) {
                 console.log("success");
                 console.log(response);
                 //$("#tabs-container").removeClass("state-loading");
-               	fillTabTemplate(response,name)
+                if (response.length>0) {
+              		fillTabTemplate(response,name)
+               	}else{
+               		$(".no-results").fadeIn();
+               	}
             },
             error: function(data){
                 console.log("error");
