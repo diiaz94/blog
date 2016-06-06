@@ -4,7 +4,11 @@ $(function () {
 	$("body").css("background","black");
 	$("body").css("color","white");
 	if ($(".nav-desktop").length) {
-		$(".nav-desktop").css("position","absolute");
+		if(parseInt($("body").width())<400){
+            $(".nav-desktop").css("position","fixed")
+      	}else{
+			$(".nav-desktop").css("position","absolute");
+		}
 	}; 
 	initTabs();
 	search_posts("");

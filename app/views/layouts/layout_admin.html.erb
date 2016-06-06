@@ -27,9 +27,7 @@
 			var loc = location.pathname;
 			$(".posts").addClass(loc.indexOf("posts")!=-1?"active":"");
 			$(".inicio").addClass(loc.indexOf("posts")==-1?"active":"");
-      if(parseInt($("body").width())<400){
-        $(".nav-desktop").css("position","fixed")
-      }
+      
 		});
 	</script>
 <nav class="navbar navbar-default nav-desktop">
