@@ -1,3 +1,17 @@
+<script type="text/javascript">
+$(function(){
+
+    var textareas = document.getElementsByTagName("textarea");
+    for(var i=0;i<textareas.length;i++)
+     {
+        var myNicEditor = new nicEditor();
+        myNicEditor.panelInstance(textareas[i]);
+
+     }
+
+    console.log("se ejecuto")
+  })
+</script>
 <%= form_for(@post,url: (@post.new_record? ? admin_posts_url : admin_post_url ),:html => {:class => "form-with-img"}) do |f| %>
   <% if @post.errors.any? %>
     <div id="error_explanation">

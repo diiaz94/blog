@@ -47,13 +47,14 @@ $( document ).ready(function() {
 		location.hash = hash; //#hash
 	}
 	processNavigate =function() {
-	 	 	var  hash = location.hash;
-	 	 	switch(hash){
+	 	 	var  hashes = location.hash.split("/");
+
+	 	 	switch(hashes[0]){
 		 	 	case "#news":
-		 	 		fillTab("news")
+	 	 			fillTab("news",hashes.length>1 ? hashes[1] : "");
 		 	 	break;
 		 	 	case "#updates":
-		 	 		fillTab("updates")
+	 	 			fillTab("updates",hashes.length>1 ? hashes[1] : "");
 		 	 	break;
 		 	 	default:
 		 	 		break;	
@@ -67,28 +68,29 @@ $( document ).ready(function() {
 function inflateTabTemplate(template,data){
 
 	template.find(".title").text(data.title);
-	template.find(".subtitle").text(data.subtitle.length>0 ?data.subtitle.substring(0,1).toUpperCase()+data.subtitle.substring(1).toLowerCase():data.subtitle);
+	template.find(".subtitle").text(firstUpper(data.subtitle));
 	template.find(".fecha_c").text(data.fecha_c);
-	template.find(".description").text(data.description);
+	template.find(".description").html(data.description);
 	$(template.find(".post-img")).attr("src",data.img_url);
 	$(template.find(".buttons .delete")).attr("href",data.url);
 	$(template.find(".buttons .edit")).attr("href",data.url_edit);
 	return template;
 }
 
-function fillTabTemplate(data,name){
+function fillTabTemplate(data,name,title_post){
 	var template = $("#"+name+" .post-container.template");
 	$.each(data,function(i,v){
 		var nonInflateTemplate = template.clone();
 		nonInflateTemplate.removeClass("hidden");
 		nonInflateTemplate.removeClass("template");
+		nonInflateTemplate.attr("id",v.slug)
 		var inflateTemplate = inflateTabTemplate(nonInflateTemplate,v);
 		$("#"+name).append(inflateTemplate);
 	});
 	template.remove();
-	showTab(name);
+	showTab(name,title_post);
 }
-function fillTab(name) {
+function fillTab(name,title_post) {
 	 $.ajax({
             type:'GET',
             url: '/posts.json',
@@ -104,7 +106,7 @@ function fillTab(name) {
                 console.log(response);
                 //$("#tabs-container").removeClass("state-loading");
                 if (response.length>0) {
-              		fillTabTemplate(response,name)
+              		fillTabTemplate(response,name,title_post)
                	}else{
                		$(".no-results").fadeIn();
                	}
@@ -121,7 +123,7 @@ function fillTab(name) {
             }
         });
 }
-function showTab(name){
+function showTab(name,title_post){
 	$.each($("#tabs-container").children(),function(i,v){
 		if ($(v).attr("id")===name) {
 			$(v).fadeIn();
@@ -138,6 +140,14 @@ function showTab(name){
 		}
 			
 	});
+
+setTimeout(function(){
+	if (typeof(title_post)!=undefined && $('#'+title_post).length) {
+		$(document.body).animate({
+    		'scrollTop':   $('#'+title_post).offset().top
+		}, 1000);
+	};
+},500);
 
 }
 function initTabs(){
@@ -156,6 +166,9 @@ function initTabs(){
 }
 
 function getUrlImage(model){
+	if(model=="post"){
+		$('[name="post[description]"]').val($("div.nicEdit-main").html());
+	}
 	if ($("#file").val().length>0){
 		var formData = new FormData(document.getElementById("file-img"));
 		 $.ajax({
@@ -176,9 +189,12 @@ function getUrlImage(model){
 	            error: function(data){
 	                console.log("error");
 	                console.log(data);
+			        $(".form-with-img").append("<input type='text' name='"+model+"[img_url]' value='/photo_store/default.jpg'>");         	
+					$(".form-with-img").submit();
 	            }
 	        });
 	}else{
+        $(".form-with-img").append("<input type='text' name='"+model+"[img_url]' value='/photo_store/default.jpg'>");         	
 		$(".form-with-img").submit();
 	}
 }
@@ -191,16 +207,26 @@ function showLoader(){
 
 
 
+function firstUpper(value){
+	if (typeof(value)!=undefined && value.length>0) {
+		return value.substring(0,1).toUpperCase()+value.substring(1).toLowerCase();
+	}else{
+		return value;
+	}
+}
+
 
 function inflateSearchResult(data){
 	$(".searching-result").html("");
 	$.each(data,function(i,v){
 		$(".searching-result").append(
 			"<div class='row-result'>"+
+			"<a href='#"+v.type.name+"s/"+v.slug+"'>"+
 			"<p>"+
-			"<span class='searching-title'>"+v.title+"</span><br>"+
-			"<span class='searching-subtitle'>"+v.subtitle+"</span>"+
+			"<span class='searching-title text-searched'>"+firstUpper(v.title)+"</span><br>"+
+			"<span class='searching-subtitle text-searched'>"+firstUpper(v.subtitle)+"</span>"+
 			"</p>"+
+			"</a>"+
 			"</div>"
 			)
 
@@ -210,31 +236,77 @@ function inflateSearchResult(data){
 
 function search_posts(text){
 
-	if (text.length>0) {
-		var url_search = "/search.json"
-
-	}else{
-		var url_search = "/posts.json"
-	}
+	var url_search = text.length>0 ? "/search.json":"/posts.json";
 
 	$.ajax({
-	type:'GET',
-	url: url_search,
-	data:{text: text},
-	success:function(response){
-	    console.log("success");
-	    console.log(response);
-	    inflateSearchResult(response)
-
-	},
-	error: function(data){
-	    console.log("error");
-	    console.log(data);
-	}
+		type:'GET',
+		url: url_search,
+		data:{text: text},
+		success:function(response){
+		    console.log("success");
+		    console.log(response);
+		    inflateSearchResult(response);
+		    marktext();
+		},
+		error: function(data){
+		    console.log("error");
+		    console.log(data);
+		}
 	});
 }
 
 
+function marktext(){
+
+	var textsArr =$(".text-searched");
+	
+	$.each(textsArr,find_and_mark);
+}
+
+var find_and_mark = function (i,element){
+		var text = $('#iconified').val();
+		var ts=$(element).text();
+		var index = find_indexes(ts);
+		var result="";
+		if(index!=-1){
+			result = ts.substring(0,index)+"<b>"+ts.substring(index,index+text.length)+"</b>"+ts.substring(index+text.length)
+			$(element).html(result);
+		}
+	};
+
+
+function find_indexes(ts){
+
+	var index;
+	var text = $('#iconified').val();
+	index=ts.indexOf(text);
+	if(index!=-1){ 
+		return index;
+	}else{
+		index=ts.indexOf(text.toUpperCase());
+		if(index!=-1){
+			return index;
+		}else{
+			index=ts.indexOf(text.toLowerCase());
+			if(index!=-1){ 
+				return index;
+			}else{
+				if(ts.length>1){
+					index=ts.indexOf(text[0].toUpperCase()+text.substring(1));
+					if (index!=-1) {
+						return index;	
+					}else{
+						return -1;
+					}
+				}else{
+					return -1;
+				}
+				
+			}
+		}
+
+	}
+}
 
 
 

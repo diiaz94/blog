@@ -7,6 +7,8 @@ $(function () {
 		$(".nav-desktop").css("position","absolute");
 	}; 
 	initTabs();
+	search_posts("");
+	$(".principal-container").css("top",parseInt($('header').height())-20)
 });
 </script>
 <header class="header">
@@ -28,7 +30,7 @@ $(function () {
 			<li><a href="#updates" class="tablinks"> UPDATES</a></li>
 		</ul>
 		<div class="row">
-			<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 no-padding-right">
+			<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 no-padding-right-sm">
 				<div class="posts-container" id="tabs-container">
 					<div class="no-results">No existen entradas de este tipo</div>
 					<div id="news" class="tab-content">
@@ -106,15 +108,6 @@ $(function () {
 						</div>
 						<div class="title-search">ARCHIVO</div> 
 						<div class="searching-result">
-				    	<% @posts.each do |post| %>
-				    		<div class="row-result">
-								<p>
-									<span class="searching-title"><%=post.title%></span><br>
-									<span class="searching-subtitle"><%=post.subtitle%></span>
-								</p>
-				    		</div>
-						<% end %>
-
 						</div>
 					</div>
 				</div>

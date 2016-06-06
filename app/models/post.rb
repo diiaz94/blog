@@ -5,6 +5,8 @@ class Post < ActiveRecord::Base
  	extend FriendlyId
 	friendly_id :title, use: :slugged
 
+  validates :title, :presence => {:message => "El título no puede estar vacío"}
+
   FOTOS = File.join Rails.root, 'public','photo_store'
 
   after_save :guardar_foto

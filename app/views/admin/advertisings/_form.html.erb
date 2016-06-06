@@ -1,3 +1,4 @@
+
 <%= form_for(@advertising,url: (@advertising.new_record? ? admin_advertisings_url : admin_advertising_url ),:html => {:class => "form-with-img"}) do |f| %>
   <% if @advertising.errors.any? %>
     <div id="error_explanation">

@@ -44,6 +44,7 @@ class Admin::PostsController < ApplicationController
   # PATCH/PUT /posts/1.json
   def update
     respond_to do |format|
+      @post.slug=nil
       if @post.update(post_params)
         format.html { redirect_to root_path, notice: 'Entrada actualizada exitosamente.' }
         format.json { render :show, status: :ok, location: @post }

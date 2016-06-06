@@ -16,7 +16,7 @@ class PostsController < ApplicationController
         end  
       end
     else
-      @posts = Post.all.order(created_at: :asc)
+      @posts = Post.all.order(created_at: :desc)
       puts "TODOS LOS POSTS"
       puts @posts.to_json
     end
