@@ -12,11 +12,11 @@ class PostsController < ApplicationController
         if params[:type]=="updates"
           @posts = Post.where(type_id: Type.where(name: "update").first.id).order(created_at: :desc)
         else
-         @posts = Post.all
+          @posts = Post.all.order(created_at: :desc).limit(6)
         end  
       end
     else
-      @posts = Post.all.order(created_at: :desc)
+      @posts = Post.all.order(created_at: :desc).limit(6)
       puts "TODOS LOS POSTS"
       puts @posts.to_json
     end

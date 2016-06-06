@@ -17,7 +17,7 @@ class Admin::PostsController < ApplicationController
   # GET /posts/new
   def new
     @post = Post.new
-    @post.img_url="/photo_store/default.jpg"
+    @post.img_url="/photo_store/default.png"
   end
 
   # GET /posts/1/edit

@@ -181,7 +181,7 @@ function getUrlImage(model){
 	            success:function(response){
 	                console.log("success");
 	                console.log(response);
-	                var url_image = response.status_code==200 ? response.data.thumb_url:"/photo_store/default.jpg";
+	                var url_image = response.status_code==200 ? response.data.thumb_url:"/photo_store/default.png";
 	                $(".form-with-img").append("<input type='text' name='"+model+"[img_url]' value='"+url_image+"'>");         	
 	               	$(".form-with-img").submit();
 
@@ -189,13 +189,13 @@ function getUrlImage(model){
 	            error: function(data){
 	                console.log("error");
 	                console.log(data);
-			        $(".form-with-img").append("<input type='text' name='"+model+"[img_url]' value='/photo_store/default.jpg'>");         	
+			        $(".form-with-img").append("<input type='hidden' name='"+model+"[img_url]' value='/photo_store/default.png'>");         	
 					$(".form-with-img").submit();
 	            }
 	        });
 	}else{
-		if ($("#containerImage").attr("src")=="/photo_store/default.jpg") {
-        	$(".form-with-img").append("<input type='text' name='"+model+"[img_url]' value='/photo_store/default.jpg'>");         	
+		if ($("#containerImage").attr("src")=="/photo_store/default.png") {
+        	$(".form-with-img").append("<input type='hidden' name='"+model+"[img_url]' value='/photo_store/default.png'>");         	
 		}
 		$(".form-with-img").submit();
 	}

@@ -142,7 +142,6 @@ input.empty {
 
 
 footer{
-	position:fixed;
 	left:0px;
 	bottom:0px;
 	height:60px;
@@ -150,6 +149,8 @@ footer{
 	z-index: 2;
 	background-color: #ffaa35;	
 	padding-top: 6px;
+    position: relative;
+    top: 200px;
 }
 
 footer p{
@@ -357,7 +358,7 @@ ul.tab li a:focus, .active {
 
 .container{
 	position: relative;
-	margin-bottom: 100px;
+	margin-bottom: 1px;
 }
 .text-searched b{
 	color: #ffaa35;
@@ -366,4 +367,6 @@ ul.tab li a:focus, .active {
      background-color: black;
      color:white;
      height: 400px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
