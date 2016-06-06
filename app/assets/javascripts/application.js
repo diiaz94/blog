@@ -194,7 +194,9 @@ function getUrlImage(model){
 	            }
 	        });
 	}else{
-        $(".form-with-img").append("<input type='text' name='"+model+"[img_url]' value='/photo_store/default.jpg'>");         	
+		if ($("#containerImage").attr("src")=="/photo_store/default.jpg") {
+        	$(".form-with-img").append("<input type='text' name='"+model+"[img_url]' value='/photo_store/default.jpg'>");         	
+		}
 		$(".form-with-img").submit();
 	}
 }
