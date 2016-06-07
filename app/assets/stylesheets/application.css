@@ -364,9 +364,8 @@ ul.tab li a:focus, .active {
 	color: #ffaa35;
 }
 .nicEdit-main{
-     background-color: black;
-     color:white;
-     height: 400px;
+    background-color: black;
+    color:white;
     padding-left: 15px;
     padding-right: 15px;
 }

@@ -47,18 +47,23 @@ $( document ).ready(function() {
 		location.hash = hash; //#hash
 	}
 	processNavigate =function() {
+		//debugger;
 	 	 	var  hashes = location.hash.split("/");
+	 	 	if (hashes.length==1) {
+	 	 		navigate(hashes[0]+"/page/1");
+	 	 		return;
+	 	 	};
 	 	 	var page = hashes.length>2 && hashes[1]=="page" ? parseInt(hashes[2]) : 1 
 	 	 	switch(hashes[0]){
 		 	 	case "#news":
-		 	 		//$(".tab .active a").attr("href",location.hash);
-		 	 		//$(".content-tab-news").attr("id",location.hash.split("#")[1])
-	 	 			fillTab("news",hashes.length>1 ? hashes[1] : "", page);
+		 	 		$(".tbl-news").attr("href",location.hash);
+		 	 		$(".content-tab-news").attr("id",location.hash.split("#")[1])
+	 	 			fillTab("news",undefined, page);
 		 	 	break;
 		 	 	case "#updates":
-		 	 		//$(".tab .active a").attr("href",location.hash);
-		 	 		//$(".content-tab-updates").attr("id",location.hash.split("#")[1])
-	 	 			fillTab("updates",hashes.length>1 ? hashes[1] : "",page);
+		 	 		$(".tbl-updates").attr("href",location.hash);
+		 	 		$(".content-tab-updates").attr("id",location.hash.split("#")[1])
+	 	 			fillTab("updates",undefined,page);
 		 	 	break;
 		 	 	default:
 		 	 		break;	
@@ -82,14 +87,16 @@ function inflateTabTemplate(template,data){
 }
 
 function fillTabTemplate(data,name,title_post){
-	var template = $("#"+name+" .post-container.template");
+	var template = $(".content-tab-"+name+" .post-container.template");
+	//debugger
+	$(".content-tab-"+name).html("");
 	$.each(data,function(i,v){
 		var nonInflateTemplate = template.clone();
 		nonInflateTemplate.removeClass("hidden");
 		nonInflateTemplate.removeClass("template");
 		nonInflateTemplate.attr("id",v.slug)
 		var inflateTemplate = inflateTabTemplate(nonInflateTemplate,v);
-		$("#"+name).append(inflateTemplate);
+		$(".content-tab-"+name).append(inflateTemplate);
 	});
 	template.remove();
 	showTab(name,title_post);
@@ -108,6 +115,7 @@ function fillTab(name,title_post,page) {
             success:function(response){
                 console.log("success");
                 console.log(response);
+                debugger
                 //$("#tabs-container").removeClass("state-loading");
                 if (response.length>0) {
               		fillTabTemplate(response,name,title_post)
@@ -129,7 +137,6 @@ function fillTab(name,title_post,page) {
 }
 function showTab(name,title_post){
 	$.each($("#tabs-container").children(),function(i,v){
-		//debugger
 		if (typeof($(v).attr("id"))!= "undefined" && $(v).attr("id").indexOf(name)!=-1) {
 			$(v).fadeIn();
 		}else{
@@ -166,7 +173,7 @@ function initTabs(){
 	if (window.location.hash) {
 		processNavigate();
 	}else{
-		navigate("news/page/1")
+		navigate("news")
 	}
 }
 

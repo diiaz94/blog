@@ -7,19 +7,22 @@ class PostsController < ApplicationController
   def index
     if params[:type]
       if params[:type]=="news"
-        @posts = Post.paginate(page: params[:page],per_page: 5).news.lasts
+        puts "Buscando posts tipo new"
+        @posts = Post.news.lasts.paginate(page: params[:page],per_page: 5)
       else
         if params[:type]=="updates"
-          @posts = Post.paginate(page: params[:page],per_page: 5).updates.lasts
+          puts "Buscando posts tipo update"
+          @posts = Post.updates.lasts.paginate(page: params[:page],per_page: 5)
         else
-          @posts = Post.paginate(page: params[:page],per_page:5).lasts
+          puts "TODOS LOS TIPOS DE POSTS"
+          @posts = Post.lasts.paginate(page: params[:page],per_page:5)
         end  
       end
     else
-      @posts = Post.paginate(page: params[:page],per_page: 5)
-      puts "TODOS LOS POSTS"
-      puts @posts.to_json
+      @posts = Post.lasts.paginate(page: params[:page],per_page:5)
+      puts "TODOS LOS TIPOS DE POSTS"
     end
+      puts " TAM DE POSTS::"+ @posts.size.to_s
   end
 
   # GET /posts/1
