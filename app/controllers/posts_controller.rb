@@ -7,16 +7,16 @@ class PostsController < ApplicationController
   def index
     if params[:type]
       if params[:type]=="news"
-        @posts = Post.where(type_id: Type.where(name: "new").first.id).order(created_at: :desc)    
+        @posts = Post.paginate(page: params[:page],per_page: 5).news.lasts
       else
         if params[:type]=="updates"
-          @posts = Post.where(type_id: Type.where(name: "update").first.id).order(created_at: :desc)
+          @posts = Post.paginate(page: params[:page],per_page: 5).updates.lasts
         else
-          @posts = Post.all.order(created_at: :desc).limit(6)
+          @posts = Post.paginate(page: params[:page],per_page:5).lasts
         end  
       end
     else
-      @posts = Post.all.order(created_at: :desc).limit(6)
+      @posts = Post.paginate(page: params[:page],per_page: 5)
       puts "TODOS LOS POSTS"
       puts @posts.to_json
     end

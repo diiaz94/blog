@@ -11,7 +11,7 @@ $(function () {
 		}
 	}; 
 	initTabs();
-	search_posts("");
+	//search_posts("");
 	if(parseInt($("body").width())>400){
 		$(".principal-container").css("top",parseInt($('header').height())-20)
 	}else{
@@ -42,7 +42,7 @@ $(function () {
 			<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 no-padding-right-sm">
 				<div class="posts-container" id="tabs-container">
 					<div class="no-results">No existen entradas de este tipo</div>
-					<div id="news" class="tab-content">
+					<div id="news" class="tab-content content-tab-news">
 					 	<div class="post-container template hidden">
 						 	<h1 class="title"></h1>
 						 	<h4 class="subtitle"></h3>
@@ -66,7 +66,7 @@ $(function () {
 					 		<hr> 
 						</div>
 					</div>
-					<div id="updates" class="tab-content">
+					<div id="updates" class="tab-content content-tab-updates">
 						<div class="post-container template hidden">
 						 	<h1 class="title"></h1>
 						 	<h4 class="subtitle"></h3>
@@ -90,9 +90,13 @@ $(function () {
 					 		<hr> 
 						</div>
 					 </div>
-				<div class="loading-container">
-					<img src="/photo_store/ajax-loader.gif">
-				</div>	
+					<div class="loading-container">
+						<img src="/photo_store/ajax-loader.gif">
+					</div>	
+				</div>
+				<div class="buttons-paginate">
+					<div class="paginate-previus f-l">Entradas antiguas</div>
+					<div class="paginate-previus f-r">Entradas recientes</div>
 				</div>
 			</div>
 			<div class="hidden-xs col-sm-4 col-md-4 col-lg-4 no-padding-left">

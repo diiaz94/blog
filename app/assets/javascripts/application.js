@@ -25,7 +25,7 @@ $( document ).ready(function() {
 	    } else {
 	        input.removeClass('empty');
 	    }
-	    	search_posts(input.val());
+	    	//search_posts(input.val());
 	});
 
 	/*$( "body" ).mousemove(function( event ) {
@@ -48,13 +48,17 @@ $( document ).ready(function() {
 	}
 	processNavigate =function() {
 	 	 	var  hashes = location.hash.split("/");
-
+	 	 	var page = hashes.length>2 && hashes[1]=="page" ? parseInt(hashes[2]) : 1 
 	 	 	switch(hashes[0]){
 		 	 	case "#news":
-	 	 			fillTab("news",hashes.length>1 ? hashes[1] : "");
+		 	 		//$(".tab .active a").attr("href",location.hash);
+		 	 		//$(".content-tab-news").attr("id",location.hash.split("#")[1])
+	 	 			fillTab("news",hashes.length>1 ? hashes[1] : "", page);
 		 	 	break;
 		 	 	case "#updates":
-	 	 			fillTab("updates",hashes.length>1 ? hashes[1] : "");
+		 	 		//$(".tab .active a").attr("href",location.hash);
+		 	 		//$(".content-tab-updates").attr("id",location.hash.split("#")[1])
+	 	 			fillTab("updates",hashes.length>1 ? hashes[1] : "",page);
 		 	 	break;
 		 	 	default:
 		 	 		break;	
@@ -90,11 +94,11 @@ function fillTabTemplate(data,name,title_post){
 	template.remove();
 	showTab(name,title_post);
 }
-function fillTab(name,title_post) {
+function fillTab(name,title_post,page) {
 	 $.ajax({
             type:'GET',
             url: '/posts.json',
-            data:{type:name},
+            data:{type:name,page:page},
             beforeSend: function(){
             	$(".no-results").hide();
             	$(".tab-content:visible").hide();
@@ -125,7 +129,8 @@ function fillTab(name,title_post) {
 }
 function showTab(name,title_post){
 	$.each($("#tabs-container").children(),function(i,v){
-		if ($(v).attr("id")===name) {
+		//debugger
+		if (typeof($(v).attr("id"))!= "undefined" && $(v).attr("id").indexOf(name)!=-1) {
 			$(v).fadeIn();
 		}else{
 			$(v).fadeOut();
@@ -133,7 +138,7 @@ function showTab(name,title_post){
 			
 	});
 	$.each($(".tab").children(),function(i,v){
-		if ($($(v).find("a")).attr("href")==="#"+name) {
+		if ($($(v).find("a")).attr("href").indexOf("#"+name)!=-1) {
 			$(v).addClass("active");
 		}else{
 			$(v).removeClass("active");
@@ -142,7 +147,7 @@ function showTab(name,title_post){
 	});
 
 setTimeout(function(){
-	if (typeof(title_post)!=undefined && $('#'+title_post).length) {
+	if (typeof(title_post)!="undefined" && $('#'+title_post).length) {
 		$(document.body).animate({
     		'scrollTop':   $('#'+title_post).offset().top
 		}, 1000);
@@ -161,7 +166,7 @@ function initTabs(){
 	if (window.location.hash) {
 		processNavigate();
 	}else{
-		navigate("news")
+		navigate("news/page/1")
 	}
 }
 
