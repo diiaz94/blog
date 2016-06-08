@@ -21,7 +21,7 @@ class PostsController < ApplicationController
           puts "Buscando posts tipo update"
           @posts = Post.updates.lasts.paginate(page: params[:page],per_page: 5);
           puts "has_more_older::"
-          @has_more_older = Post.updates.lasts.paginate(page: params[:page],per_page: 6)[5]!=nil @has_more_older = Post.updates.lasts.paginate(page: params[:page],per_page: 6).last!=nil
+          @has_more_older = Post.updates.lasts.paginate(page: params[:page],per_page: 6)[5]!=nil
           puts @has_more_older
         else
           puts "TODOS LOS TIPOS DE POSTS"
