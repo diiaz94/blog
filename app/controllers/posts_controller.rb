@@ -9,18 +9,33 @@ class PostsController < ApplicationController
       if params[:type]=="news"
         puts "Buscando posts tipo new"
         @posts = Post.news.lasts.paginate(page: params[:page],per_page: 5)
+        puts "has_more_older::"
+        puts Post.news.lasts.paginate(page: params[:page],per_page: 6).size
+
+        puts Post.news.lasts.paginate(page: params[:page],per_page: 5).to_json
+        @has_more_older = Post.news.lasts.paginate(page: params[:page],per_page: 6)[5]!=nil
+        puts "AQUII" +Post.news.lasts.paginate(page: params[:page],per_page: 6).last.to_json
+        puts @has_more_older
       else
         if params[:type]=="updates"
           puts "Buscando posts tipo update"
-          @posts = Post.updates.lasts.paginate(page: params[:page],per_page: 5)
+          @posts = Post.updates.lasts.paginate(page: params[:page],per_page: 5);
+          puts "has_more_older::"
+          @has_more_older = Post.updates.lasts.paginate(page: params[:page],per_page: 6).last!=nil
+          puts @has_more_older
         else
           puts "TODOS LOS TIPOS DE POSTS"
           @posts = Post.lasts.paginate(page: params[:page],per_page:5)
         end  
       end
     else
-      @posts = Post.lasts.paginate(page: params[:page],per_page:5)
-      puts "TODOS LOS TIPOS DE POSTS"
+      if params[:count]
+        puts "CANTIDAD ESPECIFICA DE POSTS"
+        @posts = Post.lasts.limit(params[:count]);
+      else
+        @posts = Post.lasts.paginate(page: params[:page],per_page:5)
+        puts "TODOS LOS TIPOS DE POSTS"
+      end
     end
       puts " TAM DE POSTS::"+ @posts.size.to_s
   end

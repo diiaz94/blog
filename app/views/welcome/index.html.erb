@@ -1,7 +1,7 @@
 
 <script type="text/javascript">
 $(function () {
-	$("body").css("background","black");
+	$("body").css("background","#121314");
 	$("body").css("color","white");
 	if ($(".nav-desktop").length) {
 		if(parseInt($("body").width())<400){
@@ -11,6 +11,7 @@ $(function () {
 		}
 	}; 
 	initTabs();
+	initSearchResult();
 	//search_posts("");
 	if(parseInt($("body").width())>400){
 		$(".principal-container").css("top",parseInt($('header').height())-20)
@@ -43,60 +44,18 @@ $(function () {
 				<div class="posts-container" id="tabs-container">
 					<div class="no-results">No existen entradas de este tipo</div>
 					<div id="news" class="tab-content content-tab-news">
-					 	<div class="post-container template hidden">
-						 	<h1 class="title"></h1>
-						 	<h4 class="subtitle"></h3>
-						 	<h4 class="fecha_c"></h3>
-						 	<div class="container-image-post">
-						 		<img class="post-img" src="" alt="">
-						 	</div>
-						 	<%if current_user and current_user.admin?%>
-							 	<div class="buttons">
-								 	<a type="button" data-confirm="¿Estás seguro/a?" rel="nofollow" data-method="delete"  style="color:red;" class="btn btn-default f-l delete" aria-label="Left Align" > 
-								 		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-								 		Eliminar
-								 	</a>
-								 	<a type="button" class="btn btn-default f-r edit" >
-								 		<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-								 		Editar
-								 	</a>
-							 	</div>
-						 	<%end%> 
-							 	<p class="description"></p>
-					 		<hr> 
-						</div>
+					 	
 					</div>
 					<div id="updates" class="tab-content content-tab-updates">
-						<div class="post-container template hidden">
-						 	<h1 class="title"></h1>
-						 	<h4 class="subtitle"></h3>
-						 	<h4 class="fecha_c"></h3>
-						 	<div class="container-image-post">
-						 		<img class="post-img" src="" alt="">
-						 	</div>
-						 	<%if current_user and current_user.admin?%>
-							 	<div class="buttons">
-								 	<a type="button" data-confirm="¿Estás seguro/a?" rel="nofollow" data-method="delete" style="color:red;" class="btn btn-default f-l delete" aria-label="Left Align" > 
-								 		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-								 		Eliminar
-								 	</a>
-								 	<a type="button" class="btn btn-default f-r edit" >
-								 		<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-								 		Editar
-								 	</a>
-							 	</div>
-						 	<%end%> 
-						 	<p class="description"></p>
-					 		<hr> 
-						</div>
+						
 					 </div>
 					<div class="loading-container">
 						<img src="/photo_store/ajax-loader.gif">
 					</div>	
 				</div>
 				<div class="buttons-paginate">
-					<div class="paginate-previus f-l">Entradas antiguas</div>
-					<div class="paginate-previus f-r">Entradas recientes</div>
+					<div class="paginate-previus f-l"> <a href=""><- Entradas m&aacute;s antiguas</a></div>
+					<div class="paginate-nexts f-r"><a href="">Entradas m&aacute;s recientes -></a></div>
 				</div>
 			</div>
 			<div class="hidden-xs col-sm-4 col-md-4 col-lg-4 no-padding-left">
@@ -132,3 +91,25 @@ $(function () {
 	</div>
 </div>
 
+<div class="post-container template hidden">
+ 	<h1 class="title"></h1>
+ 	<h4 class="subtitle"></h3>
+ 	<h4 class="fecha_c"></h3>
+ 	<div class="container-image-post">
+ 		<img class="post-img" src="" alt="">
+ 	</div>
+ 	<%if current_user and current_user.admin?%>
+	 	<div class="buttons">
+		 	<a type="button" data-confirm="¿Estás seguro/a?" rel="nofollow" data-method="delete"  style="color:red;" class="btn btn-default f-l delete" aria-label="Left Align" > 
+		 		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+		 		Eliminar
+		 	</a>
+		 	<a type="button" class="btn btn-default f-r edit" >
+		 		<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+		 		Editar
+		 	</a>
+	 	</div>
+ 	<%end%> 
+	 	<p class="description"></p>
+		<hr> 
+</div>

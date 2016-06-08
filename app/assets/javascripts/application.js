@@ -87,7 +87,7 @@ function inflateTabTemplate(template,data){
 }
 
 function fillTabTemplate(data,name,title_post){
-	var template = $(".content-tab-"+name+" .post-container.template");
+	var template = $(".post-container.template");
 	//debugger
 	$(".content-tab-"+name).html("");
 	$.each(data,function(i,v){
@@ -98,9 +98,31 @@ function fillTabTemplate(data,name,title_post){
 		var inflateTemplate = inflateTabTemplate(nonInflateTemplate,v);
 		$(".content-tab-"+name).append(inflateTemplate);
 	});
-	template.remove();
+	//template.remove();
 	showTab(name,title_post);
 }
+
+function updateButtonsPaginate(page,has_more){
+ debugger
+var hidden_all_buttons = page==1 && (has_more!=null && !has_more);
+var hidden_left_button = (has_more!=null && !has_more);
+var hidden_right_button = page==1
+
+$(".buttons-paginate").addClass(hidden_all_buttons? "hidden" : "");
+$(".buttons-paginate").removeClass(!hidden_all_buttons? "hidden" : "");
+
+$(".buttons-paginate .paginate-previus").addClass(hidden_left_button? "hidden" : "");
+$(".buttons-paginate .paginate-previus").removeClass(!hidden_left_button? "hidden" : "");
+$(".buttons-paginate .paginate-previus a").attr("href",!hidden_left_button? location.href.replace(page,page+1) : "");
+
+$(".buttons-paginate .paginate-nexts").addClass(hidden_right_button? "hidden" : "");
+$(".buttons-paginate .paginate-nexts").removeClass(!hidden_right_button? "hidden" : "");
+$(".buttons-paginate .paginate-nexts a").attr("href",!hidden_right_button? location.href.replace(page,page-1) : "");
+
+
+}
+
+
 function fillTab(name,title_post,page) {
 	 $.ajax({
             type:'GET',
@@ -115,10 +137,13 @@ function fillTab(name,title_post,page) {
             success:function(response){
                 console.log("success");
                 console.log(response);
-                debugger
+
                 //$("#tabs-container").removeClass("state-loading");
-                if (response.length>0) {
-              		fillTabTemplate(response,name,title_post)
+                if (response.posts.length>0) {
+              		fillTabTemplate(response.posts,name,title_post);
+              		if (typeof(title_post)=="undefined") {
+              			updateButtonsPaginate(page,response.has_more_older);
+              		};
                	}else{
                		$(".no-results").fadeIn();
                	}
@@ -247,7 +272,22 @@ function inflateSearchResult(data){
 
 	});
 }
-
+function initSearchResult(){
+	$.ajax({
+		type:'GET',
+		url: "/posts.json",
+		data:{count: 6},
+		success:function(response){
+		    console.log("success");
+		    console.log(response);
+		    inflateSearchResult(response.posts);
+		},
+		error: function(data){
+		    console.log("error");
+		    console.log(data);
+		}
+	});
+}
 function search_posts(text){
 
 	var url_search = text.length>0 ? "/search.json":"/posts.json";
@@ -259,8 +299,8 @@ function search_posts(text){
 		success:function(response){
 		    console.log("success");
 		    console.log(response);
-		    inflateSearchResult(response);
-		    marktext();
+		    //inflateSearchResult(response);
+		    //marktext();
 		},
 		error: function(data){
 		    console.log("error");
