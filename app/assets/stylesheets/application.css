@@ -276,7 +276,25 @@ ul.tab li a:focus, .active {
     letter-spacing: 7px;
     text-transform: uppercase;
     font-weight: bold;
+    text-decoration:none!important;
+  	transition: all .2s ease-in;
+  	    line-height: normal
 }
+
+.title:hover{
+	color:#ffaa35;
+	background: transparent;
+	cursor: pointer;
+    text-decoration: underline;
+    border-style:solid;
+  	border-width: 0px 0px 1px 0px;
+}
+.title:visited{
+	color:#ffaa35;
+}
+
+
+
 .subtitle{
 	font-size: 13.29px;
 	color:#f8f9fb;

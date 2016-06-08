@@ -7,22 +7,16 @@ class PostsController < ApplicationController
   def index
     if params[:type]
       if params[:type]=="news"
-        puts "Buscando posts tipo new"
-        @posts = Post.news.lasts.paginate(page: params[:page],per_page: 5)
-        puts "has_more_older::"
-        puts Post.news.lasts.paginate(page: params[:page],per_page: 6).size
-
-        puts Post.news.lasts.paginate(page: params[:page],per_page: 5).to_json
-        @has_more_older = Post.news.lasts.paginate(page: params[:page],per_page: 6)[5]!=nil
-        puts "AQUII" +Post.news.lasts.paginate(page: params[:page],per_page: 6).last.to_json
-        puts @has_more_older
+        puts "Buscando posts tipo update"
+        @posts = Post.news.lasts.paginate(page: params[:page],per_page: 6)
+        @has_more_older = @posts[5]!=nil
+        @posts = @posts.limit(5)
       else
         if params[:type]=="updates"
           puts "Buscando posts tipo update"
-          @posts = Post.updates.lasts.paginate(page: params[:page],per_page: 5);
-          puts "has_more_older::"
-          @has_more_older = Post.updates.lasts.paginate(page: params[:page],per_page: 6)[5]!=nil
-          puts @has_more_older
+          @posts = Post.updates.lasts.paginate(page: params[:page],per_page: 6)
+          @has_more_older = @posts[5]!=nil
+          @posts = @posts.limit(5)
         else
           puts "TODOS LOS TIPOS DE POSTS"
           @posts = Post.lasts.paginate(page: params[:page],per_page:5)

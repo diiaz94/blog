@@ -56,14 +56,23 @@ $( document ).ready(function() {
 	 	 	var page = hashes.length>2 && hashes[1]=="page" ? parseInt(hashes[2]) : 1 
 	 	 	switch(hashes[0]){
 		 	 	case "#news":
-		 	 		$(".tbl-news").attr("href",location.hash);
-		 	 		$(".content-tab-news").attr("id",location.hash.split("#")[1])
-	 	 			fillTab("news",undefined, page);
+		 	 		if (hashes.length>2 && hashes[1]=="page") {
+			 	 		$(".tbl-news").attr("href",location.hash);
+			 	 		$(".content-tab-news").attr("id",location.hash.split("#")[1])
+	 	 				fillTab("news",undefined, page);
+		 	 		}else{
+		 	 			
+		 	 		}
+
 		 	 	break;
 		 	 	case "#updates":
-		 	 		$(".tbl-updates").attr("href",location.hash);
-		 	 		$(".content-tab-updates").attr("id",location.hash.split("#")[1])
-	 	 			fillTab("updates",undefined,page);
+			 	 	if (hashes.length>2 && hashes[1]=="page") {
+			 	 		$(".tbl-updates").attr("href",location.hash);
+		 		 		$(".content-tab-updates").attr("id",location.hash.split("#")[1])
+	 	 				fillTab("updates",undefined,page)
+	 	 			}else{
+		 	 				
+		 	 		}
 		 	 	break;
 		 	 	default:
 		 	 		break;	
@@ -77,6 +86,7 @@ $( document ).ready(function() {
 function inflateTabTemplate(template,data){
 
 	template.find(".title").text(data.title);
+	$(template.find(".title")).attr("href","#"+data.type.name+"s/"+data.slug);
 	template.find(".subtitle").text(firstUpper(data.subtitle));
 	template.find(".fecha_c").text(data.fecha_c);
 	template.find(".description").html(data.description);
@@ -103,7 +113,6 @@ function fillTabTemplate(data,name,title_post){
 }
 
 function updateButtonsPaginate(page,has_more){
- debugger
 var hidden_all_buttons = page==1 && (has_more!=null && !has_more);
 var hidden_left_button = (has_more!=null && !has_more);
 var hidden_right_button = page==1
