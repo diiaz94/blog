@@ -28,6 +28,10 @@ $( document ).ready(function() {
 	    	//search_posts(input.val());
 	});
 
+	$(".btn-search").on('click',function(){
+		navigate("search/"+$(".input-searching").val());
+	});
+
 	/*$( "body" ).mousemove(function( event ) {
 		if(event.pageY<60){
 			if ($("nav.nav-desktop").length) {
@@ -47,7 +51,6 @@ $( document ).ready(function() {
 		location.hash = hash; //#hash
 	}
 	processNavigate =function() {
-		//debugger;
 	 	 	var  hashes = location.hash.split("/");
 	 	 	if (hashes.length==1) {
 	 	 		navigate(hashes[0]+"/page/1");
@@ -56,22 +59,31 @@ $( document ).ready(function() {
 	 	 	var page = hashes.length>2 && hashes[1]=="page" ? parseInt(hashes[2]) : 1 
 	 	 	switch(hashes[0]){
 		 	 	case "#news":
-		 	 		if (hashes.length>2 && hashes[1]=="page") {
-			 	 		$(".tbl-news").attr("href",location.hash);
-			 	 		$(".content-tab-news").attr("id",location.hash.split("#")[1])
-	 	 				fillTab("news",undefined, page);
-		 	 		}else{
-		 	 			
-		 	 		}
+			 	 	if (hashes.length>1){
+			 	 		if (hashes[1]=="page") {
+				 	 		$(".tbl-news").attr("href",location.hash);
+				 	 		$(".content-tab-news").attr("id",location.hash.split("#")[1])
+		 	 				fillTab("news",page);
+			 	 		}else{
+			 	 			findPost(hashes[1]);
+			 	 		}
+			 	 	}
 
 		 	 	break;
 		 	 	case "#updates":
-			 	 	if (hashes.length>2 && hashes[1]=="page") {
+			 	 	if (hashes.length>1) {
 			 	 		$(".tbl-updates").attr("href",location.hash);
 		 		 		$(".content-tab-updates").attr("id",location.hash.split("#")[1])
-	 	 				fillTab("updates",undefined,page)
+	 	 				fillTab("updates",page)
 	 	 			}else{
-		 	 				
+		 	 			findPost(hashes[1]);	
+		 	 		}
+		 	 	break;
+		 	 	case "#search":
+			 	 	if (hashes.length>1) {
+			 	 		search_posts(hashes[1]);
+	 	 			}else{
+
 		 	 		}
 		 	 	break;
 		 	 	default:
@@ -96,7 +108,7 @@ function inflateTabTemplate(template,data){
 	return template;
 }
 
-function fillTabTemplate(data,name,title_post){
+function fillTabTemplate(data,name){
 	var template = $(".post-container.template");
 	//debugger
 	$(".content-tab-"+name).html("");
@@ -109,7 +121,7 @@ function fillTabTemplate(data,name,title_post){
 		$(".content-tab-"+name).append(inflateTemplate);
 	});
 	//template.remove();
-	showTab(name,title_post);
+	showTab(name);
 }
 
 function updateButtonsPaginate(page,has_more){
@@ -132,7 +144,7 @@ $(".buttons-paginate .paginate-nexts a").attr("href",!hidden_right_button? locat
 }
 
 
-function fillTab(name,title_post,page) {
+function fillTab(name,page) {
 	 $.ajax({
             type:'GET',
             url: '/posts.json',
@@ -149,10 +161,8 @@ function fillTab(name,title_post,page) {
 
                 //$("#tabs-container").removeClass("state-loading");
                 if (response.posts.length>0) {
-              		fillTabTemplate(response.posts,name,title_post);
-              		if (typeof(title_post)=="undefined") {
-              			updateButtonsPaginate(page,response.has_more_older);
-              		};
+              		fillTabTemplate(response.posts,name);
+           			updateButtonsPaginate(page,response.has_more_older);
                	}else{
                		$(".no-results").fadeIn();
                	}
@@ -169,7 +179,7 @@ function fillTab(name,title_post,page) {
             }
         });
 }
-function showTab(name,title_post){
+function showTab(name){
 	$.each($("#tabs-container").children(),function(i,v){
 		if (typeof($(v).attr("id"))!= "undefined" && $(v).attr("id").indexOf(name)!=-1) {
 			$(v).fadeIn();
@@ -300,21 +310,40 @@ function initSearchResult(){
 function search_posts(text){
 
 	var url_search = text.length>0 ? "/search.json":"/posts.json";
-
+	var type = $(".tbl-news").closest(".active").length ? "news" : "updates";
 	$.ajax({
 		type:'GET',
 		url: url_search,
-		data:{text: text},
+		data:{text: text,type:type},
+	    beforeSend: function(){
+        	$(".no-results").hide();
+        	$(".tab-content:visible").hide();
+        	$(".loading-container").fadeIn();
+      		$("#tabs-container").addClass("state-loading");
+        },
 		success:function(response){
 		    console.log("success");
 		    console.log(response);
+            if (response.posts.length>0) {
+   		    	fillTabTemplate(response.posts,type);
+          	}else{
+           		$(".no-results").fadeIn();
+           	}   		    
+
+   		    $(".buttons-paginate").addClass("hidden");
+
 		    //inflateSearchResult(response);
 		    //marktext();
 		},
 		error: function(data){
 		    console.log("error");
 		    console.log(data);
-		}
+		},
+		complete:function(){
+        	$(".loading-container").hide();
+	   		$("#tabs-container").removeClass("state-loading");
+			//$("#tabs-container").removeClass("state-loading");
+        }
 	});
 }
 
@@ -372,4 +401,40 @@ function find_indexes(ts){
 }
 
 
+
+
+function findPost(title_post){
+	$.ajax({
+		type:'GET',
+		url: "/posts/"+title_post+".json",
+		success:function(response){
+		    console.log("success");
+		    console.log(response);
+		    fillTabTemplate([response.post],response.post.type.name+"s");
+		    $(".buttons-paginate").addClass("hidden");
+		    $(".buttons-paginate .paginate-previus").addClass("hidden");
+		    $(".buttons-paginate .paginate-nexts").addClass("hidden");
+		    if (typeof(response.previus)!="undefined") {
+		    	$(".buttons-paginate").removeClass("hidden");
+		    	$(".buttons-paginate .paginate-previus").removeClass("hidden");
+				$(".buttons-paginate .paginate-previus a").attr("href",location.href.replace(location.hash,"#"+response.post.type.name+"s/"+response.previus.slug));
+				var text = $(".buttons-paginate .paginate-previus a").text();
+				$(".buttons-paginate .paginate-previus a").text(text.replace(text.substring(2),response.previus.title));
+		    }
+		    if (typeof(response.next)!="undefined") {
+		    	$(".buttons-paginate").removeClass("hidden");
+		    	$(".buttons-paginate .paginate-nexts").removeClass("hidden");
+				$(".buttons-paginate .paginate-nexts a").attr("href",location.href.replace(location.hash,"#"+response.post.type.name+"s/"+response.next.slug));
+				var text = $(".buttons-paginate .paginate-nexts a").text();
+				$(".buttons-paginate .paginate-nexts a").text(text.replace(text.substring(0,text.length-2),response.next.title));
+
+		    }
+		    //marktext();
+		},
+		error: function(data){
+		    console.log("error");
+		    console.log(data);
+		}
+	});
+}
 

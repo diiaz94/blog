@@ -37,10 +37,19 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+    all_posts = @post.type.name=="new" ? Post.news.lasts : Post.updates.lasts
+    puts "ALL_POSTS ***"
+    puts all_posts.to_json
+    puts "ALL_POSTS ***"
+    index = all_posts.index(@post)
+    puts index.to_s
+    @older = index<all_posts.size ? all_posts[index+1] : nil
+    @recent = index>0 ? all_posts[index-1] : nil
+
   end
 
   def search
-    allPosts = Post.all
+    allPosts = params[:type] == "news" ? Post.news : (params[:type]=="updates" ? Post.updates : Post.all)
     text = params["text"].downcase
     puts "********"+text
     @posts = []
@@ -59,7 +68,7 @@ class PostsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
-      @post = Post.find(params[:id])
+      @post = Post.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

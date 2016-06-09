@@ -1,6 +1,6 @@
 
 <script type="text/javascript">
-$(function () {
+$( document ).ready(function() {
 	$("body").css("background","#121314");
 	$("body").css("color","white");
 	if ($(".nav-desktop").length) {
@@ -13,12 +13,16 @@ $(function () {
 	initTabs();
 	initSearchResult();
 	//search_posts("");
+	console.log("voy::"+$("body").width())
+setTimeout(function(){
 	if(parseInt($("body").width())>400){
 		$(".principal-container").css("top",parseInt($('header').height())-20)
 	}else{
 		$(".principal-container").css("top",parseInt($('header').height())+10)
 
 	}
+},500);
+
 });
 </script>
 <header class="header">

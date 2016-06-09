@@ -5,8 +5,12 @@ $(function(){
     var textareas = document.getElementsByTagName("textarea");
     for(var i=0;i<textareas.length;i++)
      {
+      if (typeof(nicEditor)!="undefined"){
         var myNicEditor = new nicEditor({fullPanel:true,maxHeight:400});
-        myNicEditor.panelInstance(textareas[i]);
+        if (typeof(myNicEditor)!="undefined") {
+          myNicEditor.panelInstance(textareas[i]);
+        };
+      }
 
      }
 
