@@ -14,7 +14,7 @@
 
 <div class="field">
     <%=f.label :photo, "Imagen de la publicidad"%><br>
-    <%= image_tag @advertising.img_url, id: "containerImage", class: "img-upload"%><br>
+    <%= image_tag @advertising.img_url, id: "containerImage", class: "img-upload", style: "background:black;"%><br>
     <button type="button" style="margin-top:5px;" class="btn btn-default"  onclick="$('#file').click();">
       <span class="glyphicon glyphicon-camera" aria-hidden="true" style="margin-right:5px;" ></span>
       Cargar Imagen &nbsp;

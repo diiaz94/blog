@@ -150,7 +150,7 @@ footer{
 	background-color: #ffaa35;	
 	padding-top: 6px;
     position: relative;
-    top: 200px;
+    top: 280px;
 }
 
 footer p{
@@ -402,3 +402,48 @@ ul.tab li a:focus, .active {
 .buttons-paginate a:hover{
 	background: transparent;
 }
+
+
+.link-advertising a:hover{
+background: initial;
+}
+
+.mdn-header .mdn-header-options-search .mdn-glyp {
+    background: #fff;
+    border-radius: 12px 0 0 12px;
+    border-right: none;
+    border: 1px solid #b9babc;
+    color: #fff;
+    size: 27px;
+    text-align: center;
+    width: 40px;
+}
+
+.mdn-header .mdn-header-options-search .mdn-glyp .mdn-ico {
+    color: #b9babc;
+    font-size: 30px;
+}
+
+.icon-mdn_search:before {
+    content: '\e815';
+}
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+    font-family: "font-mdn";
+    font-style: normal;
+    font-weight: normal;
+    speak: none;
+    display: inline-block;
+    text-decoration: inherit;
+    width: 1em;
+    margin-right: .2em;
+    text-align: center;
+    /* opacity: .8; */
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1em;
+    margin-left: .2em;
+    /* font-size: 120%; */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */

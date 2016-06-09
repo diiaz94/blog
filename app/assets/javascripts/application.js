@@ -71,13 +71,15 @@ $( document ).ready(function() {
 
 		 	 	break;
 		 	 	case "#updates":
-			 	 	if (hashes.length>1) {
-			 	 		$(".tbl-updates").attr("href",location.hash);
-		 		 		$(".content-tab-updates").attr("id",location.hash.split("#")[1])
-	 	 				fillTab("updates",page)
-	 	 			}else{
-		 	 			findPost(hashes[1]);	
-		 	 		}
+		 	 		if (hashes.length>1){
+			 	 		if (hashes[1]=="page") {
+				 	 		$(".tbl-updates").attr("href",location.hash);
+			 		 		$(".content-tab-updates").attr("id",location.hash.split("#")[1])
+		 	 				fillTab("updates",page)
+			 	 		}else{
+			 	 			findPost(hashes[1]);
+			 	 		}
+			 	 	}
 		 	 	break;
 		 	 	case "#search":
 			 	 	if (hashes.length>1) {
