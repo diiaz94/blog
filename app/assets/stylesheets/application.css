@@ -494,3 +494,7 @@ background: initial;
    font-style: italic;
 }
 
+.marked{
+    color: blue;
+}
+

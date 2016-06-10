@@ -31,6 +31,11 @@ $( document ).ready(function() {
 	$(".btn-search").on('click',function(){
 		navigate("search/"+$(".input-search").val());
 	});
+	$(".input-search").on('keypress',function(e) {
+  		if(e.which == 13) {
+			navigate("search/"+$(".input-search").val());
+  		}
+	});
 
 	/*$( "body" ).mousemove(function( event ) {
 		if(event.pageY<60){
@@ -43,7 +48,7 @@ $( document ).ready(function() {
 			}
 		}
 	});*/
-
+	var textSearched="";
 	treatNavigation();
 });
 
@@ -84,6 +89,7 @@ $( document ).ready(function() {
 		 	 	case "#search":
 			 	 	if (hashes.length>1) {
 			 	 		search_posts(hashes[1]);
+			 	 		textSearched = hashes[1];
 	 	 			}else{
 
 		 	 		}
@@ -283,8 +289,8 @@ function inflateSearchResult(data){
 			"<div class='row-result'>"+
 			"<a href='#"+v.type.name+"s/"+v.slug+"'>"+
 			"<p>"+
-			"<span class='searching-title text-searched'>"+firstUpper(v.title)+"</span><br>"+
-			"<span class='searching-subtitle text-searched'>"+firstUpper(v.subtitle)+"</span>"+
+			"<span class='searching-title'>"+firstUpper(v.title)+"</span><br>"+
+			"<span class='searching-subtitle'>"+firstUpper(v.subtitle)+"</span>"+
 			"</p>"+
 			"</a>"+
 			"</div>"
@@ -328,6 +334,7 @@ function search_posts(text){
 		    console.log(response);
             if (response.posts.length>0) {
    		    	fillTabTemplate(response.posts,type);
+   		    	marktext();
           	}else{
            		$(".no-results").fadeIn();
            	}   		    
@@ -358,12 +365,12 @@ function marktext(){
 }
 
 var find_and_mark = function (i,element){
-		var text = $('#iconified').val();
+		var text = textSearched
 		var ts=$(element).text();
 		var index = find_indexes(ts);
 		var result="";
 		if(index!=-1){
-			result = ts.substring(0,index)+"<b>"+ts.substring(index,index+text.length)+"</b>"+ts.substring(index+text.length)
+			result = ts.substring(0,index)+"<b class='marked'>"+ts.substring(index,index+text.length)+"</b>"+ts.substring(index+text.length)
 			$(element).html(result);
 		}
 	};
@@ -372,7 +379,7 @@ var find_and_mark = function (i,element){
 function find_indexes(ts){
 
 	var index;
-	var text = $('#iconified').val();
+	var text = textSearched;
 	index=ts.indexOf(text);
 	if(index!=-1){ 
 		return index;
