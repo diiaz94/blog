@@ -12,8 +12,7 @@ $( document ).ready(function() {
 	}; 
 	initTabs();
 	initSearchResult();
-	//search_posts("");
-	console.log("voy::"+$("body").width())
+
 	setTimeout(function(){
 		if(parseInt($("body").width())>400){
 			$(".principal-container").css("top",parseInt($('header').height())-20)
@@ -69,7 +68,7 @@ $( document ).ready(function() {
 				</div>
 			</div>
 			<div class="hidden-xs col-sm-4 col-md-4 col-lg-4 no-padding-left">
-				<div class="link-network"><a href="https://www.google.co.ve/" target="_blank"><img class="img-network" src="/photo_store/btn_network.jpg"></img></a></div>
+				<div class="link-network"><a href="http://www.mydealernetwork.do/" target="_blank"><img class="img-network" src="/photo_store/btn_network.png"></img></a></div>
 				<div class="link-advertising"><a href="<%=Advertising.all.first.link_url%>"><img class="img-advertising" src="<%=Advertising.all.first.img_url%>"></img></a>
 			 	<%if current_user and current_user.admin?%>
 				 	<div class="buttons">
