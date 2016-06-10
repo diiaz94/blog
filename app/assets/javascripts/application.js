@@ -150,7 +150,7 @@ $(".buttons-paginate .paginate-nexts").addClass(hidden_right_button? "hidden" : 
 $(".buttons-paginate .paginate-nexts").removeClass(!hidden_right_button? "hidden" : "");
 $(".buttons-paginate .paginate-nexts a").attr("href",!hidden_right_button? location.href.replace(page,page-1) : "");
 var text = $(".buttons-paginate .paginate-nexts a").text();
-$(".buttons-paginate .paginate-nexts a").text(text.replace(text.substring(2),"Entradas más recientes"));
+$(".buttons-paginate .paginate-nexts a").text(text.replace(text.substring(0,text.length-2),"Entradas más recientes"));
 
 
 }
