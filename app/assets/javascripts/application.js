@@ -58,7 +58,7 @@ $( document ).ready(function() {
 	function checkForChanges()
 	{
 		var $element = $(".posts-container");
-	    if ($element.height() != lastHeight && $(".box-searching > div").height()<$(".posts-container").height())
+	    if ($element.height() != lastHeight && ($(".box-searching > div").height()+$(".link-network").height()+$(".link-advertising").height())<$(".posts-container").height())
 	    {
 			$(".box-searching").height($(".posts-container").height()-$(".link-network").height()-$(".link-advertising").height()-15);
 	    }
