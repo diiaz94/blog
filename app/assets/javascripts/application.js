@@ -15,7 +15,7 @@
 //= require turbolinks
 //= require bootstrap
 //= require_tree .
-
+var lastHeight;
 $( document ).ready(function() {
 
 	$('#iconified').on('keyup', function() {
@@ -50,8 +50,21 @@ $( document ).ready(function() {
 	});*/
 	var textSearched="";
 	treatNavigation();
-});
+	
+	lastHeight = $(".posts-container").height()
+	checkForChanges();
 
+});
+	function checkForChanges()
+	{
+		var $element = $(".posts-container");
+	    if ($element.height() != lastHeight)
+	    {
+			$(".box-searching").height($(".posts-container").height()-$(".link-network").height()-$(".link-advertising").height()-15);
+	    }
+
+	    setTimeout(checkForChanges, 500);
+	}
 	navigate = function (hash){
 		location.hash = hash; //#hash
 	}
@@ -447,6 +460,9 @@ function findPost(title_post){
 		error: function(data){
 		    console.log("error");
 		    console.log(data);
+		},
+		complete:function(){
+			
 		}
 	});
 }
