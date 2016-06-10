@@ -29,7 +29,7 @@ $( document ).ready(function() {
 	});
 
 	$(".btn-search").on('click',function(){
-		navigate("search/"+$(".input-searching").val());
+		navigate("search/"+$(".input-search").val());
 	});
 
 	/*$( "body" ).mousemove(function( event ) {
