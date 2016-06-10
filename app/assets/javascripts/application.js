@@ -58,9 +58,13 @@ $( document ).ready(function() {
 	function checkForChanges()
 	{
 		var $element = $(".posts-container");
-	    if ($element.height() != lastHeight && ($(".box-searching > div").height()+$(".link-network").height()+$(".link-advertising").height())<$(".posts-container").height())
-	    {
-			$(".box-searching").height($(".posts-container").height()-$(".link-network").height()-$(".link-advertising").height()-15);
+	    if ($element.height() != lastHeight ){	
+	    	if (($(".box-searching > div").height()+$(".link-network").height()+$(".link-advertising").height())<$(".posts-container").height()) {
+				$(".box-searching").height($(".posts-container").height()-$(".link-network").height()-$(".link-advertising").height()-15);
+	    	
+		    }else{
+		    	$(".box-searching").height($(".box-searching > div").height())
+		    }
 	    }
 
 	    setTimeout(checkForChanges, 500);
