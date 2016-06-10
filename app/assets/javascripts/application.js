@@ -143,10 +143,14 @@ $(".buttons-paginate").removeClass(!hidden_all_buttons? "hidden" : "");
 $(".buttons-paginate .paginate-previus").addClass(hidden_left_button? "hidden" : "");
 $(".buttons-paginate .paginate-previus").removeClass(!hidden_left_button? "hidden" : "");
 $(".buttons-paginate .paginate-previus a").attr("href",!hidden_left_button? location.href.replace(page,page+1) : "");
+var text = $(".buttons-paginate .paginate-previus a").text();
+$(".buttons-paginate .paginate-previus a").text(text.replace(text.substring(2),"Entradas más antiguas"));
 
 $(".buttons-paginate .paginate-nexts").addClass(hidden_right_button? "hidden" : "");
 $(".buttons-paginate .paginate-nexts").removeClass(!hidden_right_button? "hidden" : "");
 $(".buttons-paginate .paginate-nexts a").attr("href",!hidden_right_button? location.href.replace(page,page-1) : "");
+var text = $(".buttons-paginate .paginate-nexts a").text();
+$(".buttons-paginate .paginate-nexts a").text(text.replace(text.substring(2),"Entradas más recientes"));
 
 
 }
