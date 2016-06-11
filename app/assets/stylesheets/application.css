@@ -19,8 +19,9 @@
     src: url(/bootstrap/fonts/Arial-Rounded-MT-Regular.ttf);
 }
 @font-face {
-  font-family: 'font-mdn';
+  font-family: font-mdn;
   src: url(/bootstrap/fonts/font-mdn.woff2);
+  src: url(/bootstrap/fonts/font-mdn.woff);
   font-weight: normal;
   font-style: normal;
 }
@@ -443,7 +444,7 @@ background: initial;
 
 
 [class^="icon-"]:before, [class*=" icon-"]:before {
-    font-family: "font-mdn";
+    font-family: font-mdn;
     font-style: normal;
     font-weight: normal;
     speak: none;
