@@ -324,7 +324,7 @@ function initSearchResult(){
 	$.ajax({
 		type:'GET',
 		url: "/posts.json",
-		data:{count: 6},
+		data:{count: 7},
 		success:function(response){
 		    console.log("success");
 		    console.log(response);
