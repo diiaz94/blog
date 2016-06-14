@@ -257,7 +257,10 @@ function getUrlImage(model){
 	if ($("#file").val().length>0){
 		var formData = new FormData(document.getElementById("file-img"));
 		 $.ajax({
-	            type:'POST',
+		 		beforeSend: function( xhr ) {
+				$("#modal-loader").modal({backdrop: 'static', keyboard: false}); 
+				},
+		        type:'POST',
 	            url: $("#file-img").attr('action'),
 	            data:formData,
 	            cache:false,
@@ -276,6 +279,9 @@ function getUrlImage(model){
 	                console.log(data);
 			        $(".form-with-img").append("<input type='hidden' name='"+model+"[img_url]' value='/photo_store/default.png'>");         	
 					$(".form-with-img").submit();
+	            },
+	            complete:function(){
+	            	$("#modal-loader").modal("hide");
 	            }
 	        });
 	}else{

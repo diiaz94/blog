@@ -57,6 +57,34 @@
   </div><!-- /.container-fluid -->
 </nav>
 <%= yield %>
+
+<div class="example-modal" >
+  <div class="modal fade modal-default" id="modal-loader">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Información</h4>
+        </div>
+        <div class="modal-body">
+          <div class="box box-danger">
+            <div class="box-header">
+              <h3 class="box-title">Cargando..</h3>
+            </div>
+            <div class="box-body">
+              Por favor espere
+            </div>
+            <!-- /.box-body -->
+            <!-- Loading (remove the following to stop the loading)-->
+            <div class="overlay">
+              <i class="fa fa-refresh fa-spin"></i>
+            </div>
+            <!-- end loading -->
+          </div>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+</div><!-- /.example-modal -->  
 <footer align="center">
 <p align="center"><b>MyDealer™</b> y <b>MyDealer Network™</b> son marcas registradas <br> de buildingSoftware JE, SRL. Todos los derechos reservados. <br>© buildingSoftware 2016</p>
 </footer>
