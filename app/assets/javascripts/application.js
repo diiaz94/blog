@@ -367,7 +367,6 @@ function search_posts(text){
            	}   		    
 
    		    $(".buttons-paginate").addClass("hidden");
-
 		    //inflateSearchResult(response);
 		    //marktext();
 		},
