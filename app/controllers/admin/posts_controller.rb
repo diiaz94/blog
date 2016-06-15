@@ -76,8 +76,8 @@ class Admin::PostsController < ApplicationController
       time = getCurrentTime
       puts "Respondio el werbservice del tiempo::"+time.to_s
         
-      @post.created_at = time ? time : (fecha ? fecha : Date.today)
-      @post.updated_at = time ? time : (fecha ? fecha : Date.today)
+      @post.created_at = fecha ? fecha : (time ? time : Date.today)
+      @post.updated_at = fecha ? fecha : (time ? time : Date.today)
       @post.save
     end
     def set_date_updated_at
@@ -87,7 +87,7 @@ class Admin::PostsController < ApplicationController
       end
       time = getCurrentTime
       puts @fecha.to_s
-      @post.updated_at = time ? time : (fecha ? fecha : Date.today)
+      @post.updated_at = fecha ? fecha : (time ? time : Date.today)
       @post.save
     end 
 
