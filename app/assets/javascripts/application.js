@@ -193,6 +193,8 @@ function fillTab(name,page) {
               		fillTabTemplate(response.posts,name);
            			updateButtonsPaginate(page,response.has_more_older);
                	}else{
+              		fillTabTemplate([],name);
+           			updateButtonsPaginate(page,false);
                		$(".no-results").fadeIn();
                	}
             },
