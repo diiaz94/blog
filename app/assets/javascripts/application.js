@@ -318,8 +318,8 @@ function inflateSearchResult(data){
 			"<div class='row-result'>"+
 			"<a href='#"+v.type.name+"s/"+v.slug+"'>"+
 			"<p>"+
-			"<span class='searching-title'>"+firstUpper(v.title)+"</span><br>"+
-			"<span class='searching-subtitle'>"+firstUpper(v.subtitle)+"</span>"+
+			"<span class='searching-title'>"+v.title+"</span><br>"+
+			"<span class='searching-subtitle'>"+v.subtitle+"</span>"+
 			"</p>"+
 			"</a>"+
 			"</div>"
