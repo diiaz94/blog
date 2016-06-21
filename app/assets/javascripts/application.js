@@ -193,6 +193,8 @@ function fillTab(name,page) {
               		fillTabTemplate(response.posts,name);
            			updateButtonsPaginate(page,response.has_more_older);
                	}else{
+              		fillTabTemplate([],name);
+           			updateButtonsPaginate(page,false);
                		$(".no-results").fadeIn();
                	}
             },
@@ -316,8 +318,8 @@ function inflateSearchResult(data){
 			"<div class='row-result'>"+
 			"<a href='#"+v.type.name+"s/"+v.slug+"'>"+
 			"<p>"+
-			"<span class='searching-title'>"+firstUpper(v.title)+"</span><br>"+
-			"<span class='searching-subtitle'>"+firstUpper(v.subtitle)+"</span>"+
+			"<span class='searching-title'>"+v.title+"</span><br>"+
+			"<span class='searching-subtitle'>"+v.subtitle+"</span>"+
 			"</p>"+
 			"</a>"+
 			"</div>"
@@ -330,7 +332,7 @@ function initSearchResult(){
 	$.ajax({
 		type:'GET',
 		url: "/posts.json",
-		data:{count: 6},
+		data:{count: 7},
 		success:function(response){
 		    console.log("success");
 		    console.log(response);
@@ -367,7 +369,6 @@ function search_posts(text){
            	}   		    
 
    		    $(".buttons-paginate").addClass("hidden");
-
 		    //inflateSearchResult(response);
 		    //marktext();
 		},

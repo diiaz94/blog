@@ -9,7 +9,7 @@ class CreatePosts < ActiveRecord::Migration
       t.belongs_to :type
       t.timestamps null: false
     end
-    add_index :posts, :title, unique: true
+    add_index :posts, :title, unique: false
 
   end
 end
